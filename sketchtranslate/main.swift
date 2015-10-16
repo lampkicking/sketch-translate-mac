@@ -28,8 +28,8 @@ var iOSFile = ""
 for key in json.keys
 {
     let value = json[key]!
-    var androidReplacedValue = value.stringByReplacingOccurrencesOfString("\n", withString: "\\n").stringByReplacingOccurrencesOfString("\'", withString: "\\\'")
-    var iosReplacedValue = value
+    var androidReplacedValue = value.stringByReplacingOccurrencesOfString("\n", withString: "\\n").stringByReplacingOccurrencesOfString("\'", withString: "\\\'").stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
+    var iosReplacedValue = value.stringByReplacingOccurrencesOfString("\n", withString: "\\n").stringByReplacingOccurrencesOfString("\'", withString: "\\\'").stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
 
     var androidVariableIndex = 1
     while let range = androidReplacedValue.rangeOfString("\\{[^}]+\\}",
@@ -49,7 +49,7 @@ for key in json.keys
 
     andoridFile += String(format: "    <string name=\"%@\">%@</string>\n", arguments: [key, androidReplacedValue])
 
-    iOSFile += String(format: "\"%@\" = \"%@\";\n", arguments: [key, androidReplacedValue])
+    iOSFile += String(format: "\"%@\" = \"%@\";\n", arguments: [key, iosReplacedValue])
 
 }
 
