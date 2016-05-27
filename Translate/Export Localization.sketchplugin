@@ -5,6 +5,5 @@
 if ([doc fileURL] == null) {
   alert("You need to save your document to use this command");
 } else {
-    log ("test")
   com.yoti.export();
 }
