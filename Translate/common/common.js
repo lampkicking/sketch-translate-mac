@@ -2,6 +2,17 @@
 
 var com = {};
 
+function Item(value)
+{
+    this.value = value
+    this.screens = [[NSMutableArray alloc] init]
+}
+
+function Translations()
+{
+    this.items = [[NSMutableDictionary alloc] init]
+}
+
 com.yoti =
 {
     alert: function (msg, title)
@@ -29,87 +40,98 @@ com.yoti =
         return file_folder;
     },
 
-    exportData : function (exportableData, jsonData, textPageName)
+    exportData : function (translations, conflictsMetadata)
     {
         var path = com.yoti.getExportPath();
 
-        var data = [NSJSONSerialization dataWithJSONObject:exportableData options:NSJSONWritingPrettyPrinted error:nil];
+        var data = [NSJSONSerialization dataWithJSONObject:translations.items options:NSJSONWritingPrettyPrinted error:nil];
 
-        [data writeToFile:path + "/loc_data.txt"]
+        [data writeToFile:path + "/loc_data.json"]
 
         var conflictingPageName = [[NSMutableDictionary alloc] init]
-        var keys = textPageName.allKeys()
+        var keys = conflictsMetadata.allKeys()
         for (var i = 0; i < keys.count(); ++i)
         {
-          pageName = keys[i]
-          if (textPageName[pageName].count() > 1)
-          {
-            conflictingPageName[pageName] = textPageName[pageName]
-          }
+            pageName = keys[i]
+            if (conflictsMetadata[pageName].count() > 1)
+            {
+                var firstItemValue = conflictsMetadata[pageName][0].value
+                for (var j = 1; j < conflictsMetadata[pageName].count(); j++)
+                {
+                    var currentItem = conflictsMetadata[pageName][j]
+                    if (!(firstItemValue.isEqualToString(currentItem.value)))
+                    {
+                        conflictingPageName[pageName] = conflictsMetadata[pageName]
+                        break;
+                    }
+                }
+            }
         }
         data = [NSJSONSerialization dataWithJSONObject:conflictingPageName options:NSJSONWritingPrettyPrinted error:nil];
-        [data writeToFile:path + "/conflicts_data.txt"]
-
+        [data writeToFile:path + "/conflicts_data.json"]
     },
 
-    export : function()
+    generateLocalisation : function()
     {
-        var addedLayers = []
-        var doc = context.document
-        var documentName = context.document.displayName()
-
-        var jsonData = [[NSMutableDictionary alloc] init]
-        var textPageName = [[NSMutableDictionary alloc] init]
-        var exportableData = [[NSMutableDictionary alloc] init]
-
-        for (var pageIndex = 0; pageIndex < context.document.pages().count(); ++pageIndex)
+        try
         {
-          var artBoards = context.document.pages()[pageIndex].artboards()
-          for (var artBoardIndex = 0; artBoardIndex < artBoards.count(); ++ artBoardIndex)
-          {
-            var arboard = artBoards[artBoardIndex]
-            var children = arboard.children()
+            var document = context.document
+            var translations = new Translations()
 
-            for (var i = 0; i < children.count(); ++i)
+            var conflictsMetadata = [[NSMutableDictionary alloc] init]
+            // Iterate through pages
+            for (var pageIndex = 0; pageIndex < document.pages().count(); ++pageIndex)
             {
-              var element = children[i]
-              var name = element.name()
-              var parent = element.parentGroup()
-              if (element.isVisible())
-              {
-                  if ([name rangeOfString:@"loc."].location == 0 || [name rangeOfString:@"btn."].location == 0)
-                  {
-                      //create the text
-                      var newName = name
+                var artBoards = document.pages()[pageIndex].artboards()
 
-                      if ([element isKindOfClass:[MSTextLayer class]])
-                      {
-                          if (exportableData[newName] && !exportableData[newName].isEqualToString(element.stringValue()))
-                          {
-                              //create the text
-                              var tmp = [[NSMutableArray alloc] init]
-                              tmp.addObject(arboard.name())
-                              tmp.addObject(element.stringValue())
-                              textPageName[newName].addObject(tmp)
-                          }
-                          else
-                          {
-                              textPageName[newName] = [[NSMutableArray alloc] init]
-                              var tmp = [[NSMutableArray alloc] init]
-                              tmp.addObject(arboard.name())
-                              tmp.addObject(element.stringValue())
-                              textPageName[newName].addObject(tmp)
-                              exportableData[newName] = element.stringValue()
-                          }
-                      }
+                // Iterate through ArtBoards (== screens)
+                for (var artBoardIndex = 0; artBoardIndex < artBoards.count(); ++artBoardIndex)
+                {
+                    var artboard = artBoards[artBoardIndex]
+                    var screenElements = artboard.children()
+                    var artBoardName = artboard.name()
 
+                    // Iterate through elements of the screen
+                    for (var i = 0; i < screenElements.count(); ++i)
+                    {
+                        var element = screenElements[i]
+                        var name = element.name()
+
+                        if (element.isVisible())
+                        {
+                            if (([name rangeOfString:@"loc."].location == 0 || [name rangeOfString:@"btn."].location == 0) && [element isKindOfClass:[MSTextLayer class]])
+                            {
+                                // Export the translations
+                                var item = translations.items[name]
+                                if (item == null)
+                                {
+                                    item = new Item(element.stringValue())
+                                    translations.items[name] = item
+                                }
+
+                                item.screens.addObject(artBoardName)
+
+                                // Export the conflicts Metadata
+                                var tmp = new Item(element.stringValue())
+                                tmp.screens.addObject(artBoardName)
+
+                                if (conflictsMetadata[name] == null)
+                                {
+                                    conflictsMetadata[name] = [[NSMutableArray alloc] init]
+                                }
+                                conflictsMetadata[name].addObject(tmp)
+
+                            }
+                        }
                     }
                   }
-                }
-              }
+            }
+            com.yoti.exportData(translations, conflictsMetadata)
         }
-
-        com.yoti.exportData (exportableData, jsonData, textPageName)
+        catch (e)
+        {
+            log (e)
+        }
     },
 
     translatePageWithData: function(data)
@@ -190,14 +212,6 @@ com.yoti =
                     data = JSON.parse(getString.toString());
                     errorCount += this.translatePageWithData(data);
                 }
-            }
-            if (errorCount > 0)
-            {
-                this.alert('Translation completed with ' + errorCount + ' changes.', null);
-            }
-            else
-            {
-                this.alert('Translation completed successfully', null);
             }
         }
     }

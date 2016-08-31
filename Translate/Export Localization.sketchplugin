@@ -5,5 +5,5 @@
 if ([doc fileURL] == null) {
   alert("You need to save your document to use this command");
 } else {
-  com.yoti.export();
+  com.yoti.generateLocalisation();
 }
