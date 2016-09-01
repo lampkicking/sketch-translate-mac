@@ -1,0 +1,2 @@
+github "jatoben/CommandLine" "master"
+github "onevcat/Rainbow" ~> 1.1

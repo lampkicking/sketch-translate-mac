@@ -8,23 +8,57 @@
 
 /* Begin PBXBuildFile section */
 		5660F3D71BBD4CE000842A82 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660F3D61BBD4CE000842A82 /* main.swift */; };
+		5697255B1D77382D003EA40A /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725571D77382D003EA40A /* CommandLine.swift */; };
+		5697255C1D77382D003EA40A /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725591D77382D003EA40A /* Option.swift */; };
+		5697255D1D77382D003EA40A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5697255A1D77382D003EA40A /* StringExtensions.swift */; };
+		5697256B1D773836003EA40A /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5697255F1D773836003EA40A /* BackgroundColor.swift */; };
+		5697256C1D773836003EA40A /* CodesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725601D773836003EA40A /* CodesParser.swift */; };
+		5697256D1D773836003EA40A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725611D773836003EA40A /* Color.swift */; };
+		5697256E1D773836003EA40A /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725621D773836003EA40A /* ControlCode.swift */; };
+		5697256F1D773836003EA40A /* ModesExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725631D773836003EA40A /* ModesExtractor.swift */; };
+		569725701D773836003EA40A /* OutputTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725641D773836003EA40A /* OutputTarget.swift */; };
+		569725711D773836003EA40A /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725661D773836003EA40A /* Rainbow.swift */; };
+		569725721D773836003EA40A /* String+Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725671D773836003EA40A /* String+Rainbow.swift */; };
+		569725731D773836003EA40A /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725681D773836003EA40A /* StringGenerator.swift */; };
+		569725741D773836003EA40A /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725691D773836003EA40A /* Style.swift */; };
+		569725751D773836003EA40A /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5697256A1D773836003EA40A /* XcodeColorsSupport.swift */; };
+		569725771D774105003EA40A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725761D774105003EA40A /* Item.swift */; };
+		569725791D783027003EA40A /* NSJSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725781D783027003EA40A /* NSJSONSerialization.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		5660F3D11BBD4CE000842A82 /* CopyFiles */ = {
+		569725531D772D7E003EA40A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5660F3D31BBD4CE000842A82 /* sketchtranslate */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sketchtranslate; sourceTree = BUILT_PRODUCTS_DIR; };
 		5660F3D61BBD4CE000842A82 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		569725571D77382D003EA40A /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLine.swift; sourceTree = "<group>"; };
+		569725581D77382D003EA40A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		569725591D77382D003EA40A /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		5697255A1D77382D003EA40A /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		5697255F1D773836003EA40A /* BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		569725601D773836003EA40A /* CodesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodesParser.swift; sourceTree = "<group>"; };
+		569725611D773836003EA40A /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		569725621D773836003EA40A /* ControlCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlCode.swift; sourceTree = "<group>"; };
+		569725631D773836003EA40A /* ModesExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModesExtractor.swift; sourceTree = "<group>"; };
+		569725641D773836003EA40A /* OutputTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputTarget.swift; sourceTree = "<group>"; };
+		569725651D773836003EA40A /* Rainbow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rainbow.h; sourceTree = "<group>"; };
+		569725661D773836003EA40A /* Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
+		569725671D773836003EA40A /* String+Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Rainbow.swift"; sourceTree = "<group>"; };
+		569725681D773836003EA40A /* StringGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringGenerator.swift; sourceTree = "<group>"; };
+		569725691D773836003EA40A /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		5697256A1D773836003EA40A /* XcodeColorsSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeColorsSupport.swift; sourceTree = "<group>"; };
+		569725761D774105003EA40A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		569725781D783027003EA40A /* NSJSONSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSJSONSerialization.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +75,8 @@
 		5660F3CA1BBD4CE000842A82 = {
 			isa = PBXGroup;
 			children = (
+				5697255E1D773836003EA40A /* Sources */,
+				569725561D77382D003EA40A /* CommandLine */,
 				5660F3D51BBD4CE000842A82 /* sketchtranslate */,
 				5660F3D41BBD4CE000842A82 /* Products */,
 			);
@@ -58,8 +94,42 @@
 			isa = PBXGroup;
 			children = (
 				5660F3D61BBD4CE000842A82 /* main.swift */,
+				569725761D774105003EA40A /* Item.swift */,
+				569725781D783027003EA40A /* NSJSONSerialization.swift */,
 			);
 			path = sketchtranslate;
+			sourceTree = "<group>";
+		};
+		569725561D77382D003EA40A /* CommandLine */ = {
+			isa = PBXGroup;
+			children = (
+				569725571D77382D003EA40A /* CommandLine.swift */,
+				569725581D77382D003EA40A /* Info.plist */,
+				569725591D77382D003EA40A /* Option.swift */,
+				5697255A1D77382D003EA40A /* StringExtensions.swift */,
+			);
+			name = CommandLine;
+			path = Carthage/Checkouts/CommandLine/CommandLine;
+			sourceTree = "<group>";
+		};
+		5697255E1D773836003EA40A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5697255F1D773836003EA40A /* BackgroundColor.swift */,
+				569725601D773836003EA40A /* CodesParser.swift */,
+				569725611D773836003EA40A /* Color.swift */,
+				569725621D773836003EA40A /* ControlCode.swift */,
+				569725631D773836003EA40A /* ModesExtractor.swift */,
+				569725641D773836003EA40A /* OutputTarget.swift */,
+				569725651D773836003EA40A /* Rainbow.h */,
+				569725661D773836003EA40A /* Rainbow.swift */,
+				569725671D773836003EA40A /* String+Rainbow.swift */,
+				569725681D773836003EA40A /* StringGenerator.swift */,
+				569725691D773836003EA40A /* Style.swift */,
+				5697256A1D773836003EA40A /* XcodeColorsSupport.swift */,
+			);
+			name = Sources;
+			path = Carthage/Checkouts/Rainbow/Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,7 +141,7 @@
 			buildPhases = (
 				5660F3CF1BBD4CE000842A82 /* Sources */,
 				5660F3D01BBD4CE000842A82 /* Frameworks */,
-				5660F3D11BBD4CE000842A82 /* CopyFiles */,
+				569725531D772D7E003EA40A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -118,7 +188,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5697256E1D773836003EA40A /* ControlCode.swift in Sources */,
+				569725701D773836003EA40A /* OutputTarget.swift in Sources */,
+				569725711D773836003EA40A /* Rainbow.swift in Sources */,
+				569725721D773836003EA40A /* String+Rainbow.swift in Sources */,
+				569725771D774105003EA40A /* Item.swift in Sources */,
+				5697255D1D77382D003EA40A /* StringExtensions.swift in Sources */,
+				569725741D773836003EA40A /* Style.swift in Sources */,
+				569725751D773836003EA40A /* XcodeColorsSupport.swift in Sources */,
 				5660F3D71BBD4CE000842A82 /* main.swift in Sources */,
+				5697256D1D773836003EA40A /* Color.swift in Sources */,
+				5697256F1D773836003EA40A /* ModesExtractor.swift in Sources */,
+				569725791D783027003EA40A /* NSJSONSerialization.swift in Sources */,
+				569725731D773836003EA40A /* StringGenerator.swift in Sources */,
+				5697256B1D773836003EA40A /* BackgroundColor.swift in Sources */,
+				5697255C1D77382D003EA40A /* Option.swift in Sources */,
+				5697255B1D77382D003EA40A /* CommandLine.swift in Sources */,
+				5697256C1D773836003EA40A /* CodesParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +292,11 @@
 		5660F3DB1BBD4CE000842A82 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -213,6 +304,11 @@
 		5660F3DC1BBD4CE000842A82 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -236,6 +332,7 @@
 				5660F3DC1BBD4CE000842A82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
