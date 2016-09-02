@@ -33,7 +33,6 @@ class Exportable
     {
     }
 
-
     func writeToFile(key key: String, value: Item)
     {
     }
@@ -104,8 +103,10 @@ class Exportable
         
         for (key, value) in changedItems
         {
+            let oldCopyItem = Item(value: oldDataJson[key]!)
+
             print("Modified Copy : ".blue)
-            print("    " + key.magenta + " was : ".blue + value.value.red + " is now ".blue + value.value.green)
+            print("    " + key.magenta + " was : ".blue + oldCopyItem.value.red + " is now ".blue + value.value.green)
         }
 
     }

@@ -66,10 +66,11 @@ do {
     exit(EX_USAGE)
 }
 
+let exportable: Exportable
 switch platform.value!
 {
 case .iOS:
-    let _ = iOS(exportFilename: "localizable.strings", newFilePath: newPath.value!, oldFilePath: oldPath.value!)
+    exportable = iOS(exportFilename: "localizable.strings", newFilePath: newPath.value!, oldFilePath: oldPath.value!)
 case .Android:
-    let _ = Android(exportFilename: "localizable.strings", newFilePath: newPath.value!, oldFilePath: oldPath.value!)
+    exportable = Android(exportFilename: "localizable.strings", newFilePath: newPath.value!, oldFilePath: oldPath.value!)
 }
