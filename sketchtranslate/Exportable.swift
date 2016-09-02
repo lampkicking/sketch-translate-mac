@@ -20,9 +20,7 @@ class Exportable
         self.newFilePath = newFilePath
         self.oldFilePath = oldFilePath
 
-        initializeFile()
         processFile()
-        finalizeFile()
     }
 
     func initializeFile()
@@ -41,9 +39,10 @@ class Exportable
     {
     }
 
-
     func processFile()
     {
+        initializeFile()
+
         let newDataJson = NSJSONSerialization.JSONObjectFromFile(newFilePath)
         let oldDataJson = NSJSONSerialization.JSONObjectFromFile(oldFilePath)
 
@@ -109,5 +108,6 @@ class Exportable
             print("    " + key.magenta + " was : ".blue + oldCopyItem.value.red + " is now ".blue + value.value.green)
         }
 
+        finalizeFile()
     }
 }
