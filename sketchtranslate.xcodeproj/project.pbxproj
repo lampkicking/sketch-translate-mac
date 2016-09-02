@@ -24,6 +24,10 @@
 		569725751D773836003EA40A /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5697256A1D773836003EA40A /* XcodeColorsSupport.swift */; };
 		569725771D774105003EA40A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725761D774105003EA40A /* Item.swift */; };
 		569725791D783027003EA40A /* NSJSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569725781D783027003EA40A /* NSJSONSerialization.swift */; };
+		56ABB9DC1D797E000035361F /* StringCleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ABB9DB1D797E000035361F /* StringCleaner.swift */; };
+		56ABB9DE1D7983520035361F /* iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ABB9DD1D7983520035361F /* iOS.swift */; };
+		56ABB9E01D79841A0035361F /* Exportable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ABB9DF1D79841A0035361F /* Exportable.swift */; };
+		56ABB9E21D798AD00035361F /* Android.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56ABB9E11D798AD00035361F /* Android.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +63,10 @@
 		5697256A1D773836003EA40A /* XcodeColorsSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeColorsSupport.swift; sourceTree = "<group>"; };
 		569725761D774105003EA40A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		569725781D783027003EA40A /* NSJSONSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSJSONSerialization.swift; sourceTree = "<group>"; };
+		56ABB9DB1D797E000035361F /* StringCleaner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringCleaner.swift; sourceTree = "<group>"; };
+		56ABB9DD1D7983520035361F /* iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iOS.swift; sourceTree = "<group>"; };
+		56ABB9DF1D79841A0035361F /* Exportable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exportable.swift; sourceTree = "<group>"; };
+		56ABB9E11D798AD00035361F /* Android.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Android.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +104,10 @@
 				5660F3D61BBD4CE000842A82 /* main.swift */,
 				569725761D774105003EA40A /* Item.swift */,
 				569725781D783027003EA40A /* NSJSONSerialization.swift */,
+				56ABB9DB1D797E000035361F /* StringCleaner.swift */,
+				56ABB9DD1D7983520035361F /* iOS.swift */,
+				56ABB9DF1D79841A0035361F /* Exportable.swift */,
+				56ABB9E11D798AD00035361F /* Android.swift */,
 			);
 			path = sketchtranslate;
 			sourceTree = "<group>";
@@ -199,10 +211,14 @@
 				5660F3D71BBD4CE000842A82 /* main.swift in Sources */,
 				5697256D1D773836003EA40A /* Color.swift in Sources */,
 				5697256F1D773836003EA40A /* ModesExtractor.swift in Sources */,
+				56ABB9DE1D7983520035361F /* iOS.swift in Sources */,
 				569725791D783027003EA40A /* NSJSONSerialization.swift in Sources */,
+				56ABB9E21D798AD00035361F /* Android.swift in Sources */,
+				56ABB9E01D79841A0035361F /* Exportable.swift in Sources */,
 				569725731D773836003EA40A /* StringGenerator.swift in Sources */,
 				5697256B1D773836003EA40A /* BackgroundColor.swift in Sources */,
 				5697255C1D77382D003EA40A /* Option.swift in Sources */,
+				56ABB9DC1D797E000035361F /* StringCleaner.swift in Sources */,
 				5697255B1D77382D003EA40A /* CommandLine.swift in Sources */,
 				5697256C1D773836003EA40A /* CodesParser.swift in Sources */,
 			);

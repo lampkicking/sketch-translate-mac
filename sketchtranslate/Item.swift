@@ -10,11 +10,6 @@ import Foundation
 
 class Item
 {
-    enum ComparaisonResult
-    {
-
-    }
-
     var value = ""
     var screens = Array<String>()
 
