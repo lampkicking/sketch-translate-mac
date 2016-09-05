@@ -52,16 +52,19 @@ let projectDirectory = StringOption(shortFlag: "d",
                                     required: false,
                                     helpMessage: "Path to the iOS or Android Project")
 
-let excludedDirectory = MultiStringOption(shortFlag: "x",
+let excludedDirectories = MultiStringOption(shortFlag: "x",
                                           longFlag: "exclude",
                                           required: false,
                                           helpMessage: "Path to the iOS or Android Project")
 
-cli.addOptions(newPath, oldPath, platform, projectDirectory, excludedDirectory)
+cli.addOptions(newPath, oldPath, platform, projectDirectory, excludedDirectories)
 
-do {
+do
+{
     try cli.parse()
-} catch {
+}
+catch
+{
     cli.printUsage(error)
     exit(EX_USAGE)
 }
@@ -70,11 +73,17 @@ let exportable: Exportable
 switch platform.value!
 {
 case .iOS:
-    exportable = iOS(exportFilename: "Localizable.strings", newFilePath: newPath.value!, oldFilePath: oldPath.value!)
+    exportable = iOS(exportFilename: "Localizable.strings",
+                     newFilePath: newPath.value!,
+                     oldFilePath: oldPath.value!,
+                     projectPath: projectDirectory.value,
+                     excludedPaths: excludedDirectories.value)
 case .Android:
-    exportable = Android(exportFilename: "strings.xml", newFilePath: newPath.value!, oldFilePath: oldPath.value!)
+    exportable = Android(exportFilename: "strings.xml",
+                         newFilePath: newPath.value!,
+                         oldFilePath: oldPath.value!,
+                         projectPath: projectDirectory.value,
+                         excludedPaths: excludedDirectories.value)
 }
 
-if let projectPath = projectDirectory.value
-{
-}
+exportable.processFile()

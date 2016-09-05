@@ -8,19 +8,30 @@
 
 import Foundation
 
-class Exportable
+class Exportable: AnyObject
 {
     let exportFilename: String
     let newFilePath: String
     let oldFilePath: String
 
-    init(exportFilename: String, newFilePath: String, oldFilePath: String)
+    let projectPath: String?
+    let excludedPaths: [String]?
+    let shouldAnalyseProject: Bool
+    var supportedExtensions: [String] = []
+
+    init(exportFilename: String,
+         newFilePath: String,
+         oldFilePath: String,
+         projectPath: String?,
+         excludedPaths: [String]?)
     {
         self.exportFilename = exportFilename
         self.newFilePath = newFilePath
         self.oldFilePath = oldFilePath
+        self.projectPath = projectPath
+        self.excludedPaths = excludedPaths
 
-        processFile()
+        shouldAnalyseProject = projectPath != nil
     }
 
     func initializeFile()
@@ -50,26 +61,44 @@ class Exportable
         var deletedItems = oldDataJson
         var changedItems = Dictionary<String, Item>()
 
-        for (key, value) in newDataJson
+        var usedKeys = Array(newDataJson.keys)
+        var unusedKeys: [String] = []
+
+        if shouldAnalyseProject
         {
-            let newItem = Item(value: value)
+            let cleaner = StringCleaner()
+            (usedKeys, unusedKeys) = cleaner.processStringsInProject(projectPath!,
+                                                                     supportedExtensions: supportedExtensions,
+                                                                     excludedDirs: excludedPaths,
+                                                                     strings: Array(newDataJson.keys))
+        }
+        
+        print("\(unusedKeys.count) Keys declared in the Sketch file not used in the \(String(self.dynamicType)) Project".blue)
+        print(unusedKeys.joinWithSeparator(", ").red)
 
-            if let oldValue = oldDataJson[key]
+        for key in usedKeys
+        {
+            if let value = newDataJson[key]
             {
-                deletedItems.removeValueForKey(key)
+                let newItem = Item(value: value)
 
-                let oldItem = Item(value: oldValue)
-                if oldItem.value != newItem.value
+                if let oldValue = oldDataJson[key]
                 {
-                    changedItems[key] = newItem
-                }
+                    deletedItems.removeValueForKey(key)
 
-                writeToFile(key: key, value: newItem)
-            }
-            else
-            {
-                // We found a new key that didn't exist in the old file
-                newItems[key] = newItem
+                    let oldItem = Item(value: oldValue)
+                    if oldItem.value != newItem.value
+                    {
+                        changedItems[key] = newItem
+                    }
+
+                    writeToFile(key: key, value: newItem)
+                }
+                else
+                {
+                    // We found a new key that didn't exist in the old file
+                    newItems[key] = newItem
+                }
             }
         }
 

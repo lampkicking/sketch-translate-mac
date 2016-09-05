@@ -12,6 +12,16 @@ class iOS : Exportable
 {
     var iOSFile = ""
 
+    override init(exportFilename: String, newFilePath: String, oldFilePath: String, projectPath: String?, excludedPaths: [String]?) {
+        super.init(exportFilename: exportFilename,
+                   newFilePath: newFilePath,
+                   oldFilePath: oldFilePath,
+                   projectPath: projectPath,
+                   excludedPaths: excludedPaths)
+
+        supportedExtensions = [".swift", ".h", ".m", ".mm", ".xib", ".storyboard"]
+    }
+
     override func writeToFile(key key: String, value: Item)
     {
         let iosReplacedValue = value.toiOS()

@@ -12,6 +12,17 @@ class Android : Exportable
 {
     var andoridFile = ""
 
+    override init(exportFilename: String, newFilePath: String, oldFilePath: String, projectPath: String?, excludedPaths: [String]?) {
+        super.init(exportFilename: exportFilename,
+                   newFilePath: newFilePath,
+                   oldFilePath: oldFilePath,
+                   projectPath: projectPath,
+                   excludedPaths: excludedPaths)
+
+        supportedExtensions = ["/strings.xml"]
+    }
+
+
     override func initializeFile()
     {
         var andoridFile = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
