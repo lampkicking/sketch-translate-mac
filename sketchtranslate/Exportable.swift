@@ -122,7 +122,7 @@ class Exportable: AnyObject
             {
                 let oldItem = Item(value: value)
                 writeToFile(key: key, value: oldItem)
-                print("    " + key.magenta + " on screen named : ".blue + oldItem.screens.joinWithSeparator(", ").bold.red)
+                print("    " + key.red + " on screen named : ".blue + oldItem.screens.joinWithSeparator(", ").bold.green)
 
             }
         }
@@ -138,14 +138,13 @@ class Exportable: AnyObject
 
         print("\(unusedKeys.count) Keys declared in the Sketch file not used in the \(String(self.dynamicType)) Project".blue)
 
-        for key in unusedKeys
+        for key in unusedKeys.sort()
         {
 
             if let value = newDataJson[key]
             {
                 let newItem = Item(value: value)
-
-                print("    " + key.magenta + " with Value : ".blue + newItem.value)
+                print("    \(key.red) \("with value :".blue) \(newItem.value) \("on screens".blue) \(newItem.screens.joinWithSeparator(", ").green)")
             }
         }
 
