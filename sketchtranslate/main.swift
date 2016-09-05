@@ -55,7 +55,7 @@ let projectDirectory = StringOption(shortFlag: "d",
 let excludedDirectories = MultiStringOption(shortFlag: "x",
                                           longFlag: "exclude",
                                           required: false,
-                                          helpMessage: "Path to the iOS or Android Project")
+                                          helpMessage: "Full Path to excluded folders")
 
 cli.addOptions(newPath, oldPath, platform, projectDirectory, excludedDirectories)
 
