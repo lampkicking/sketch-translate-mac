@@ -73,8 +73,6 @@ class Exportable: AnyObject
                                                                      strings: Array(newDataJson.keys))
         }
         
-        print("\(unusedKeys.count) Keys declared in the Sketch file not used in the \(String(self.dynamicType)) Project".blue)
-        print(unusedKeys.joinWithSeparator(", ").red)
 
         for key in usedKeys
         {
@@ -135,6 +133,20 @@ class Exportable: AnyObject
 
             print("Modified Copy : ".blue)
             print("    " + key.magenta + " was : ".blue + oldCopyItem.value.red + " is now ".blue + value.value.green)
+        }
+
+
+        print("\(unusedKeys.count) Keys declared in the Sketch file not used in the \(String(self.dynamicType)) Project".blue)
+
+        for key in unusedKeys
+        {
+
+            if let value = newDataJson[key]
+            {
+                let newItem = Item(value: value)
+
+                print("    " + key.magenta + " with Value : ".blue + newItem.value)
+            }
         }
 
         finalizeFile()
