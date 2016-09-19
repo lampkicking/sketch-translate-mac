@@ -25,7 +25,7 @@ class Android : Exportable
 
     override func initializeFile()
     {
-        var andoridFile = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+        andoridFile = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
         andoridFile += "<resources>\n"
     }
 
