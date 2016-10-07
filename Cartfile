@@ -1,2 +1,2 @@
-github "jatoben/CommandLine" "master"
-github "onevcat/Rainbow" ~> 1.1
+github "IngmarStein/CommandLine" "master"
+github "onevcat/Rainbow" ~> 2.0

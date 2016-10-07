@@ -42,11 +42,11 @@ class Exportable: AnyObject
     {
     }
 
-    func writeToFile(key key: String, value: Item)
+    func writeToFile(key: String, value: Item)
     {
     }
 
-    func writeCommentToFile(comment: String)
+    func writeCommentToFile(_ comment: String)
     {
     }
 
@@ -54,8 +54,8 @@ class Exportable: AnyObject
     {
         initializeFile()
 
-        let newDataJson = NSJSONSerialization.JSONObjectFromFile(newFilePath)
-        let oldDataJson = NSJSONSerialization.JSONObjectFromFile(oldFilePath)
+        let newDataJson = JSONSerialization.JSONObjectFromFile(newFilePath)
+        let oldDataJson = JSONSerialization.JSONObjectFromFile(oldFilePath)
 
         var newItems = Dictionary<String, Item>()
         var deletedItems = oldDataJson
@@ -82,7 +82,7 @@ class Exportable: AnyObject
 
                 if let oldValue = oldDataJson[key]
                 {
-                    deletedItems.removeValueForKey(key)
+                    deletedItems.removeValue(forKey: key)
 
                     let oldItem = Item(value: oldValue)
                     if oldItem.value != newItem.value
@@ -108,7 +108,7 @@ class Exportable: AnyObject
             for (key, item) in newItems
             {
                 writeToFile(key: key, value: item)
-                print("    " + key.magenta + " on screen named : ".blue + item.screens.joinWithSeparator(", ").green)
+                print("    " + key.magenta + " on screen named : ".blue + item.screens.joined(separator: ", ").green)
             }
         }
 
@@ -122,7 +122,7 @@ class Exportable: AnyObject
             {
                 let oldItem = Item(value: value)
                 writeToFile(key: key, value: oldItem)
-                print("    " + key.red + " on screen named : ".blue + oldItem.screens.joinWithSeparator(", ").bold.green)
+                print("    " + key.red + " on screen named : ".blue + oldItem.screens.joined(separator: ", ").bold.green)
 
             }
         }
@@ -136,15 +136,15 @@ class Exportable: AnyObject
         }
 
 
-        print("\(unusedKeys.count) Keys declared in the Sketch file not used in the \(String(self.dynamicType)) Project".blue)
+        print("\(unusedKeys.count) Keys declared in the Sketch file not used in the \(String(describing: type(of: self))) Project".blue)
 
-        for key in unusedKeys.sort()
+        for key in unusedKeys.sorted()
         {
 
             if let value = newDataJson[key]
             {
                 let newItem = Item(value: value)
-                print("    \(key.red) \("with value :".blue) \(newItem.value) \("on screens".blue) \(newItem.screens.joinWithSeparator(", ").green)")
+                print("    \(key.red) \("with value :".blue) \(newItem.value) \("on screens".blue) \(newItem.screens.joined(separator: ", ").green)")
             }
         }
 

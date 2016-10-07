@@ -29,7 +29,7 @@ cli.formatOutput = { s, type in
         str = s
     }
 
-    return cli.defaultFormat(str, type: type)
+    return cli.defaultFormat(s: str, type: type)
 }
 
 let newPath = StringOption(shortFlag: "n",

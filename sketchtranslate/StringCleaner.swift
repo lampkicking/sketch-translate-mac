@@ -11,26 +11,26 @@ import Foundation
 class StringCleaner
 {
     var unusedKeys = [String]()
-    let fileManager = NSFileManager.defaultManager()
+    let fileManager = FileManager.default
     var oldStrings = [String]()
     var currentDirectory: String!
     var supportedExtensions: [String] = []
 
-    func processPaths(files: [String])
+    func processPaths(_ files: [String])
     {
         print("Starting Search ...".blue)
-        for (i, path) in files.enumerate()
+        for (i, path) in files.enumerated()
         {
             if unusedKeys.count > 0
             {
                 do
                 {
-                    let file = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding)
-                    for (x, key) in unusedKeys.enumerate().reverse()
+                    let file = try NSString(contentsOfFile: path, encoding: String.Encoding.utf8.rawValue)
+                    for (x, key) in unusedKeys.enumerated().reversed()
                     {
-                        if file.containsString("\"\(key)\"")
+                        if file.contains("\"\(key)\"")
                         {
-                            unusedKeys.removeAtIndex(x)
+                            unusedKeys.remove(at: x)
                         }
                     }
                 }
@@ -41,25 +41,25 @@ class StringCleaner
                 }
             }
             let percentage : Float = Float(i) / Float(files.count) * Float(100)
-            print(String(format: "%.2f%% %@", percentage, path.componentsSeparatedByString("/").last!))
+            print(String(format: "%.2f%% %@", percentage, path.components(separatedBy: "/").last!))
         }
     }
 
-    func expandDirectories(directories: [String]?) -> [String]
+    func expandDirectories(_ directories: [String]?) -> [String]
     {
-        var isPath :ObjCBool = ObjCBool(false)
+        var isPath: ObjCBool = ObjCBool(false)
         var expanded = [String]()
         if let directories = directories
         {
             for dir in directories
             {
-                fileManager.fileExistsAtPath(dir, isDirectory: &isPath)
-                if Bool(isPath)
+                fileManager.fileExists(atPath: dir, isDirectory: &isPath)
+                if isPath.boolValue
                 {
-                    if let subDirectories = fileManager.subpathsAtPath(dir)
+                    if let subDirectories = fileManager.subpaths(atPath: dir)
                     {
-                        let allPaths = subDirectories[subDirectories.startIndex...subDirectories.endIndex.advancedBy(-1)]
-                        expanded.appendContentsOf(allPaths)
+                        let allPaths = subDirectories[subDirectories.startIndex...subDirectories.endIndex.advanced(by: -1)]
+                        expanded.append(contentsOf: allPaths)
                     }
                 }
                 else
@@ -72,7 +72,7 @@ class StringCleaner
         return expanded
     }
 
-    func getFilePathsFromPath(includedPaths includedPaths: [String], excludedPaths: [String]) -> [String]
+    func getFilePathsFromPath(includedPaths: [String], excludedPaths: [String]) -> [String]
     {
         print("Found \(includedPaths.count) files".blue)
         let supportedFiles = includedPaths.filter{
@@ -105,14 +105,14 @@ class StringCleaner
         return leastSupportedFiles
     }
 
-    func loadStrings(strings: [String])
+    func loadStrings(_ strings: [String])
     {
         oldStrings = strings
-        unusedKeys.appendContentsOf(strings)
+        unusedKeys.append(contentsOf: strings)
         print("Found: \(unusedKeys.count) keys".blue)
     }
 
-    func processStringsInProject(projectDir: String,
+    func processStringsInProject(_ projectDir: String,
                                  supportedExtensions: [String],
                                  excludedDirs: [String]? = [String](),
                                  strings: [String]) -> ([String], [String])
@@ -128,9 +128,9 @@ class StringCleaner
 
         for key in unusedKeys
         {
-            if let index = strings.indexOf(key)
+            if let index = strings.index(of: key)
             {
-                strings.removeAtIndex(index)
+                strings.remove(at: index)
             }
         }
 

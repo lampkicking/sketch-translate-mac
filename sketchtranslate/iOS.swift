@@ -22,15 +22,15 @@ class iOS : Exportable
         supportedExtensions = [".swift", ".h", ".m", ".mm", ".xib", ".storyboard"]
     }
 
-    override func writeToFile(key key: String, value: Item)
+    override func writeToFile(key: String, value: Item)
     {
         let iosReplacedValue = value.toiOS()
 
-        iOSFile += String(format: "// %@\n", arguments: [value.screens.joinWithSeparator(" ")])
+        iOSFile += String(format: "// %@\n", arguments: [value.screens.joined(separator: " ")])
         iOSFile += String(format: "\"%@\" = \"%@\";\n", arguments: [key, iosReplacedValue])
     }
 
-    override func writeCommentToFile(comment: String)
+    override func writeCommentToFile(_ comment: String)
     {
         iOSFile += String("\n\n\n// \(comment)\n")
     }
@@ -39,7 +39,7 @@ class iOS : Exportable
     {
         do
         {
-            try iOSFile.writeToFile(exportFilename, atomically: true, encoding: NSUTF8StringEncoding)
+            try iOSFile.write(toFile: exportFilename, atomically: true, encoding: String.Encoding.utf8)
         }
         catch
         {

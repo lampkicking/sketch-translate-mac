@@ -29,15 +29,15 @@ class Android : Exportable
         andoridFile += "<resources>\n"
     }
 
-    override func writeToFile(key key: String, value: Item)
+    override func writeToFile(key: String, value: Item)
     {
         let androidReplacedValue = value.toAndroid()
 
-        andoridFile += String(format: "    <!-- %@ -->\n", arguments: [value.screens.joinWithSeparator(" ")])
+        andoridFile += String(format: "    <!-- %@ -->\n", arguments: [value.screens.joined(separator: " ")])
         andoridFile += String(format: "    <string name=\"%@\">%@</string>\n", arguments: [key, androidReplacedValue])
     }
 
-    override func writeCommentToFile(comment: String)
+    override func writeCommentToFile(_ comment: String)
     {
         andoridFile += String("\n\n\n    <!-- \(comment) -->\n")
     }
@@ -47,7 +47,7 @@ class Android : Exportable
         andoridFile += "</resources>"
         do
         {
-            try andoridFile.writeToFile(exportFilename, atomically: true, encoding: NSUTF8StringEncoding)
+            try andoridFile.write(toFile: exportFilename, atomically: true, encoding: String.Encoding.utf8)
         }
         catch
         {

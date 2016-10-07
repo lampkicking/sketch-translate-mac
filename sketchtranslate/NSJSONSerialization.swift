@@ -8,17 +8,17 @@
 
 import Foundation
 
-extension NSJSONSerialization
+extension JSONSerialization
 {
-    class func JSONObjectFromFile(filePath : String) -> Dictionary<String, Dictionary<String, AnyObject>>
+    class func JSONObjectFromFile(_ filePath : String) -> Dictionary<String, Dictionary<String, AnyObject>>
     {
         do
         {
             let content = try String(contentsOfFile: filePath)
 
-            let data: NSData = content.dataUsingEncoding(NSUTF8StringEncoding)!
+            let data: Data = content.data(using: String.Encoding.utf8)!
 
-            return try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as! Dictionary<String, Dictionary<String, AnyObject>>
+            return try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! Dictionary<String, Dictionary<String, AnyObject>>
         }
         catch
         {
