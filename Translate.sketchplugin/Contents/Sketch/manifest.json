@@ -1,0 +1,16 @@
+{
+    "name": "Translate",
+    "description": "Import Translation to a Zeplin project. ",
+    "author": "Charles Vu",
+    "authorEmail": "charles@yoti.com",
+    "homepage": "https://yoti.com",
+    "version": "2.1",
+    "identifier": "vu.charles.translate",
+    "commands": [{
+        "name": "Import ",
+        "identifier": "import",
+        "shortcut": "cmd i",
+        "script": "import.cocoascript",
+        "handler" : "onRun"
+    }],
+}
