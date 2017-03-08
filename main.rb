@@ -34,7 +34,6 @@ def transformValueToIOS (value)
     value = value.gsub("\n", "\\n")
     value = value.gsub("\"", "\\\"")
     value = value.gsub("\'", "\\\'")
-    i = 0
 
     value.gsub!(/\{.[^\}]*-([0-9]+)\}/) { |not_needed| val = "%#{$1}$s" }
 
@@ -45,7 +44,7 @@ def transformValueToAndroid (value)
     value = value.gsub("\n", "\\n")
     value = value.gsub("\"", "\\\"")
     value = value.gsub("\'", "\\\'")
-    i = 0
+    value = value.gsub("&", "&amp;")
 
     value.gsub!(/\{.[^\}]*-([0-9]+)\}/) { |not_needed| val = "%#{$1}$@" }
 
