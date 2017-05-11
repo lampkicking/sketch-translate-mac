@@ -1,0 +1,113 @@
+var com = {};
+
+function Item(value)
+{
+    this.value = value
+    this.screens = [[NSMutableArray alloc] init]
+}
+
+function Translations()
+{
+    this.items = [[NSMutableDictionary alloc] init]
+}
+
+com.yoti =
+{
+    alert: function (msg, title)
+    {
+        title = title || 'Sketch translate';
+        var app = [NSApplication sharedApplication];
+        [app displayDialog:msg withTitle:title];
+    },
+
+    translatePageWithData: function(context, data)
+    {
+        var errorCount = 0;
+        for (var pageIndex = 0; pageIndex < context.document.pages().count(); ++pageIndex)
+        {
+          var children = context.document.pages()[pageIndex].children()
+          for (var i = 0; i < children.count(); ++i)
+          {
+              var element = children[i]
+
+              if ([element isKindOfClass:[MSTextLayer class]])
+              {
+                  var newName = element.name()
+                  if(data[element.name()])
+                  {
+                      log ("Match " + element.name() + "   " + data[element.name()]);
+                      element.stringValue = data[element.name()];
+                      log (element.text);
+                      [element adjustFrameToFit];
+                  }
+
+              }
+          }
+      }
+
+        return errorCount;
+    },
+
+    rotate: function(dataArray)
+    {
+        var result = [[NSMutableDictionary alloc] init];
+        for (var i = 0; i < dataArray.length; i++)
+        {
+            var data = dataArray[i];
+            if (data["localisationKey"] != null)
+            {
+                var key = data["localisationKey"]
+                result[key] = data["localisationValue"];
+            }
+        }
+
+        return result;
+    },
+
+    importLocalization : function (context)
+    {
+        var openPanel = [NSOpenPanel openPanel];
+        var document = context.document
+        var defaultDirectory = [NSURL fileURLWithPath:"~/Documents/"];
+        if([document fileURL])
+        {
+            defaultDirectory = [[document fileURL] URLByDeletingLastPathComponent]]
+        }
+
+        [openPanel setCanChooseDirectories:false];
+        [openPanel setCanChooseFiles:true];
+        // [openPanel setAllowedFileTypes:['txt']];
+        [openPanel setCanCreateDirectories:false];
+        [openPanel setDirectoryURL:defaultDirectory];
+        [openPanel setAllowsMultipleSelection: false]
+
+        [openPanel setTitle:"Pick a translation file"];
+        [openPanel setPrompt:"Translate"];
+
+        if ([openPanel runModal] == NSOKButton)
+        {
+            var urls = [openPanel URLs];
+            var errorCount = 0;
+
+            var url, filename, getString;
+            for (var i = 0; i < urls.count(); i++)
+            {
+                url = urls[i];
+                getString = NSString.stringWithContentsOfFile_encoding_error(url, NSUTF8StringEncoding, null);
+
+                if(getString)
+                {
+                    data = JSON.parse(getString.toString());
+                    data = this.rotate(data);
+                    log (data);
+                    errorCount += this.translatePageWithData(context, data);
+                }
+            }
+        }
+    }
+}
+
+var onRun = function(context)
+{
+    com.yoti.importLocalization(context);
+}
