@@ -44,6 +44,7 @@ def transformValueToAndroid (value)
     value = value.gsub("\n", "\\n")
     value = value.gsub("\"", "\\\"")
     value = value.gsub("\'", "\\\\'")
+    value = value.gsub("’", "\\\\'")
     value = value.gsub("&", "&amp;")
 
     value.gsub!(/\{.[^\}]*-([0-9]+)\}/) { |not_needed| val = "%#{$1}$s" }
@@ -90,6 +91,6 @@ spreadsheet.worksheets.each do |worksheet|
     if (worksheet.title == 'Android Export')
         map = createLocalisationMap(worksheet)
         data = exportToXML(map)
-        writeToFile("android.xml", data)
+        writeToFile("strings.xml", data)
     end
 end
