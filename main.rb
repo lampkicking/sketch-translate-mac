@@ -57,7 +57,7 @@ end
 
 def transformValueToAndroidAfterXML (value)
     if(value.include? "•")
-        value = value.gsub(">•", "><ul> <li>")
+        value = value.gsub(">•", "><ul><li>")
         value = value.gsub("\n•", "</li><li>")
         value = value.gsub("</string>", "</li></ul></string>")
     end
