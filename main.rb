@@ -41,13 +41,28 @@ def transformValueToIOS (value)
 end
 
 def transformValueToAndroid (value)
-    value = value.gsub("\n", "\\n")
     value = value.gsub("\"", "\\\"")
     value = value.gsub("\'", "\\\\'")
     value = value.gsub("’", "\\\\'")
+    value = value.gsub("’", "\\\\'")
     value = value.gsub("&", "&amp;")
+    value = value.gsub("…", "&#8230;")
+    
+    
 
     value.gsub!(/\{.[^\}]*-([0-9]+)\}/) { |not_needed| val = "%#{$1}$s" }
+
+    return value
+end
+
+def transformValueToAndroidAfterXML (value)
+    if(value.include? "•")
+        value = value.gsub(">•", "><ul> <li>")
+        value = value.gsub("\n•", "</li><li>")
+        value = value.gsub("</string>", "</li></ul></string>")
+    end
+
+    value = value.gsub("\n", "\\n")
 
     return value
 end
@@ -73,7 +88,9 @@ def exportToXML(map)
 
     keys.each do |key|
         value = map[key]
-        stringResult =  stringResult + "    <string name=\"" + key + "\">" + transformValueToAndroid(value) + "</string>\n"
+        newLine = "    <string name=\"" + key + "\">" + transformValueToAndroid(value) + "</string>"
+        newLine = transformValueToAndroidAfterXML(newLine) + "\n"
+        stringResult =  stringResult + newLine
     end
     stringResult += "</resources>\n"
 
