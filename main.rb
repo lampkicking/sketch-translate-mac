@@ -1,3 +1,5 @@
+#!/home/ubuntu/.rvm/rubies/ruby-2.4.0/bin/ruby
+
 require "google_drive"
 
 def createLocalisationMap (worksheet)
@@ -47,6 +49,7 @@ def transformValueToAndroid (value)
     value = value.gsub("’", "\\\\'")
     value = value.gsub("’", "\\\\'")
     value = value.gsub("  ‘", "\\\\'")
+    value = value.gsub("‘", "\\\\'")
     value = value.gsub("&", "&amp;")
     value = value.gsub("…", "&#8230;")
 
