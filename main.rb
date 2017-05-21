@@ -49,7 +49,9 @@ def transformValueToAndroid (value)
     value = value.gsub("’", "\\\\'")
     value = value.gsub("’", "\\\\'")
     value = value.gsub("  ‘", "\\\\'")
+
     value = value.gsub("‘", "\\\\'")
+    value = value.gsub("“", "\\\"")
     value = value.gsub("&", "&amp;")
     value = value.gsub("…", "&#8230;")
 
