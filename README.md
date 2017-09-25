@@ -6,7 +6,9 @@ To compile the tool
 2. carthage bootstrap --platform mac --use-ssh
 3. compile via Xcode
 
-## Here is how how it works in 3 simple steps:
-**Step 1** Manage copy in a Google Sheet
-**Step 2** Export the Spreadsheet on a JSON file
-**Step 3** Import to Sketch / Xcode / Android Studio
+## How it works
+* **Step 1** Manage copy in a Google Sheet
+* **Step 2** Export the Spreadsheet on a JSON file
+* **Step 3** Import to Sketch / Xcode / Android Studio
+
+![Process](images/loc_illo_diagram.png)
