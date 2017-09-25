@@ -12,3 +12,6 @@ To compile the tool
 * **Step 3** Import to Sketch / Xcode / Android Studio
 
 ![Process](images/loc_illo_diagram.png)
+
+## Full article on Medium
+[Medium](https://medium.com/p/e479b4e98434/edit) - Localisation Made Simple.
