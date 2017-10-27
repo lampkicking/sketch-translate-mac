@@ -14,4 +14,4 @@ To compile the tool
 ![Process](images/loc_illo_diagram.png)
 
 ## Full article on Medium
-[Medium](https://medium.com/p/e479b4e98434/edit) - Localisation Made Simple.
+[Medium](https://medium.com/@teogagliano/localisation-made-simple-e479b4e98434) - Localisation Made Simple.
