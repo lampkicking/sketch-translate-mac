@@ -2,6 +2,11 @@
 
 require "google_drive"
 
+drive_config_path=ENV['DRIVE_CONFIG']
+if (drive_config_path == nil)
+    drive_config_path = 'config.json'
+end
+
 def createLocalisationMap (worksheet)
     result = Hash.new
 
@@ -102,7 +107,8 @@ def exportToXML(map)
     return stringResult
 end
 
-session = GoogleDrive::Session.from_config("config.json")
+puts "Reading config from " + drive_config_path
+session = GoogleDrive::Session.from_config(drive_config_path)
 spreadsheet = session.spreadsheet_by_key('1jKaSBFtZ_70qm3crM5saKQoC___M7PT1eQhTthFw88A')
 spreadsheet.worksheets.each do |worksheet|
     if (worksheet.title == 'iOS Export')
