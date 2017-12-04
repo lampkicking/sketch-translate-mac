@@ -103,7 +103,7 @@ def exportToXML(map)
 end
 
 session = GoogleDrive::Session.from_config("config.json")
-spreadsheet = session.spreadsheet_by_key('1jKaSBFtZ_70qm3crM5saKQoC___M7PT1eQhTthFw88A')
+spreadsheet = session.spreadsheet_by_key('4/mOC8c4i2A1-zxFgofiL07zPP5gf7KD_JepmEbO7_U-s')
 spreadsheet.worksheets.each do |worksheet|
     if (worksheet.title == 'iOS Export')
         map = createLocalisationMap(worksheet)
