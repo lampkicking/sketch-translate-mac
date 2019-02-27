@@ -110,7 +110,7 @@ end
 spreadsheetKey = ARGV[0]
 if spreadsheetKey == nil
   puts "Script called with wrong number of parameters"
-  exit
+  exit 1
 end
 
 puts "Reading config from " + drive_config_path
