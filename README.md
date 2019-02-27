@@ -6,6 +6,10 @@ To compile the tool
 2. carthage bootstrap --platform mac --use-ssh
 3. compile via Xcode
 
+To run the Script:
+1. Get the identifier of the Google Sheet that contains the copy
+2. Type "main.rb <identifier>"
+
 ## How it works
 * **Step 1** Manage copy in a Google Sheet
 * **Step 2** Export the Spreadsheet on a JSON file
