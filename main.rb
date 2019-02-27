@@ -116,7 +116,7 @@ end
 puts "Reading config from " + drive_config_path
 session = GoogleDrive::Session.from_config(drive_config_path)
 
-spreadsheet = session.spreadsheet_by_key(spreadsheet)
+spreadsheet = session.spreadsheet_by_key(spreadsheetKey)
 spreadsheet.worksheets.each do |worksheet|
     if (worksheet.title == 'iOS Export')
         map = createLocalisationMap(worksheet)
