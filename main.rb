@@ -24,10 +24,12 @@ def createLocalisationMap (worksheet)
     end
 
     # Create the map [key:value]
-    (1..worksheet.num_rows).each do |row|
+    (2..worksheet.num_rows).each do |row|
         key = worksheet[row, keyIndex]
         value = worksheet[row, valueIndex]
-        result[key] = value
+        if (!key.empty?)
+          result[key] = value
+        end
     end
 
     return result
