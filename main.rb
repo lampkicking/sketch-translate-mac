@@ -128,6 +128,6 @@ spreadsheet.worksheets.each do |worksheet|
     if (worksheet.title == 'Android Export')
         map = createLocalisationMap(worksheet)
         data = exportToXML(map)
-        writeToFile("strings.xml", data)
+        writeToFile("en-strings.xml", data)
     end
 end
