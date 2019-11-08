@@ -1,0 +1,24 @@
+## Takes input from Google drive spreadsheet to generate files for iOS and Android
+## Needs var spreadsheet-id for generation
+inputs:
+  # This repo
+  - name: scripts
+
+outputs: 
+  # Strings files will be placed here
+  - name: results
+
+params:
+  #Contents of config file to authenticate on drive
+  DRIVE_CONFIG_VALUE: ((android-drive-config))
+
+run:
+  path: ruby
+  args: [ scripts/main.rb, ((spreadsheet-id))]
+
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: dr.internal.yoti.com:443/android/task-ruby-alpine
+ 
