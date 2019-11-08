@@ -33,3 +33,4 @@ DerivedData
 Carthage/Build
 
 config.json
+results/

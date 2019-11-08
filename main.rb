@@ -12,6 +12,10 @@
 
 require "google_drive"
 
+def writeToFile(name, data)
+  File.write(name, data)
+end
+
 drive_config_path = ENV["DRIVE_CONFIG"]
 if (drive_config_path == nil)
   drive_config_path = "config.json"
@@ -48,10 +52,6 @@ def createLocalisationMap(worksheet)
   end
 
   return result
-end
-
-def writeToFile(name, data)
-  File.write(name, data)
 end
 
 def transformValueToIOS(value)
