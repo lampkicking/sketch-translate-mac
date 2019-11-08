@@ -1,10 +1,25 @@
 #!/home/ubuntu/.rvm/rubies/ruby-2.4.0/bin/ruby
+# Config is required to communicate with Google Drive.
+# There are three ways to provide this:
+# DRIVE_CONFIG is the path to a config file
+# DRIVE_CONFIG_VALUE is the string content of config
+#               file (ignored if DRIVE_CONFIG is set)
+# If neither are set, config.json from current dir is used
+#
+# Must be called with a single parameter, the id of the
+# spreadsheet on Google Drive.
+# Results are placed in results directory.
 
 require "google_drive"
 
 drive_config_path=ENV['DRIVE_CONFIG']
 if (drive_config_path == nil)
     drive_config_path = 'config.json'
+
+    drive_config_str = ENV['DRIVE_CONFIG_VALUE']
+    if (drive_config_str != nil)
+        writeToFile(drive_config_path, drive_config_str)
+    end
 end
 
 def createLocalisationMap (worksheet)
@@ -123,11 +138,11 @@ spreadsheet.worksheets.each do |worksheet|
     if (worksheet.title == 'iOS Export')
         map = createLocalisationMap(worksheet)
         data = exportToStrings(map)
-        writeToFile("ios.strings", data)
+        writeToFile("results/ios.strings", data)
     end
     if (worksheet.title == 'Android Export')
         map = createLocalisationMap(worksheet)
         data = exportToXML(map)
-        writeToFile("en-strings.xml", data)
+        writeToFile("results/en-strings.xml", data)
     end
 end
