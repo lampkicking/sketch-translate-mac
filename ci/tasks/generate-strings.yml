@@ -3,14 +3,16 @@
 inputs:
   # This repo
   - name: scripts
+  # Folder containg Drive config.json, named content
+  - name: drive-config
 
 outputs: 
   # Strings files will be placed here
   - name: results
 
 params:
-  #Contents of config file to authenticate on drive
-  DRIVE_CONFIG_VALUE: ((android-drive-config))
+  # Config file path to authenticate on drive
+  DRIVE_CONFIG: drive-config/content
 
 run:
   path: ruby
