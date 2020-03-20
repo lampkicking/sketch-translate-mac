@@ -7,23 +7,28 @@
 # android-repo contains checked out mobile-localisation repo. New Android strings will be committed here.
 # ios-repo contains checked out strings-merger repo. New iOS strings will be committed here.
 
-cp results/en-strings.xml android-repo/en/Android/strings.xml
-cp results/ios.strings ios-repo/new.strings
+ANDROID_IN_PATH=en-strings.xml
+IOS_IN_PATH=ios.strings
+ANDROID_OUT_PATH=en/Android/strings.xml
+IOS_OUT_PATH=new.strings
+
+cp results/$ANDROID_IN_PATH android-repo/$ANDROID_OUT_PATH
+cp results/$IOS_IN_PATH ios-repo/$IOS_OUT_PATH
 
 ## Android
 cd android-repo
 git config user.email "ci@yoti.com"
 git config user.name "yoti-ci"
 
-git add en/Android/strings.xml
+git add $ANDROID_OUT_PATH
 
-git diff-index --quiet HEAD en/Android/strings.xml || git commit -m "Update strings from spreadsheet merge"
+git diff-index --quiet HEAD $ANDROID_OUT_PATH || git commit -m "Update strings from spreadsheet merge"
 
 ## iOS
 cd ../ios-repo
 git config user.email "ci@yoti.com"
 git config user.name "yoti-ci"
 
-git add new.strings
+git add $IOS_OUT_PATH
 
-git diff-index --quiet HEAD new.strings || git commit -m "Update strings from spreadsheet merge"
+git diff-index --quiet HEAD $IOS_OUT_PATH || git commit -m "Update strings from spreadsheet merge"
