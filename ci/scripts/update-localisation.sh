@@ -17,7 +17,7 @@ git config user.name "yoti-ci"
 
 git add en/Android/strings.xml
 
-git commit -m "Update strings from spreadsheet merge"
+git diff-index --quiet HEAD en/Android/strings.xml || git commit -m "Update strings from spreadsheet merge"
 
 ## iOS
 cd ../ios-repo
@@ -26,4 +26,4 @@ git config user.name "yoti-ci"
 
 git add new.strings
 
-git commit -m "Update strings from spreadsheet merge"
+git diff-index --quiet HEAD new.strings || git commit -m "Update strings from spreadsheet merge"
