@@ -6,11 +6,14 @@ inputs:
   # result folder from localisation script
   - name: results
   # Checked out localisation repo, will be updated in place
-  - name: localisation
+  - name: android-repo
+  # Checked out string-merger repo, will be updated in place
+  - name: ios-repo
 
 outputs: 
-  # Input repo with updated localisation files, must be pushed.
-  - name: localisation
+  # Input repos with updated localisation files, must be pushed.
+  - name: android-repo
+  - name: ios-repo
 
 params: {}
 

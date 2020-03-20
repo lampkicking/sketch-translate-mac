@@ -1,19 +1,29 @@
 #! /bin/bash
-# Merge the result files from main.rb into the mobile-localisation repo (assumes strings in
+# Merge the result files from main.rb into the appropriate repos for processing (assumes strings in
 # spreadsheet are for en)
 #
 # Required folders:
 # results contains the result folder from a successful run of main.rb
-# localisation contains checked out mobile-localisation repo. New strings will be committed here.
+# android-repo contains checked out mobile-localisation repo. New Android strings will be committed here.
+# ios-repo contains checked out strings-merger repo. New iOS strings will be committed here.
 
-cp results/en-strings.xml localisation/en/Android/strings.xml
-cp results/ios.strings localisation/en/iOS/Localizable.strings
+cp results/en-strings.xml android-repo/en/Android/strings.xml
+cp results/ios.strings ios-repo/new.strings
 
-cd localisation
+## Android
+cd android-repo
 git config user.email "ci@yoti.com"
 git config user.name "yoti-ci"
 
 git add en/Android/strings.xml
-git add en/iOS/Localizable.strings
+
+git commit -m "Update strings from spreadsheet merge"
+
+## iOS
+cd ../ios-repo
+git config user.email "ci@yoti.com"
+git config user.name "yoti-ci"
+
+git add new.strings
 
 git commit -m "Update strings from spreadsheet merge"
