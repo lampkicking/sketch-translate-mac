@@ -1,0 +1,28 @@
+## Merge results from previous run of localisation script to a new commit
+## on localisation repo
+inputs:
+  # This repo
+  - name: scripts
+  # result folder from localisation script
+  - name: results
+  # Checked out localisation repo, will be updated in place
+  - name: android-repo
+  # Checked out string-merger repo, will be updated in place
+  - name: ios-repo
+
+outputs: 
+  # Input repos with updated localisation files, must be pushed.
+  - name: android-repo
+  - name: ios-repo
+
+params: {}
+
+run:
+  path: scripts/ci/scripts/update-localisation.sh
+
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: dr.internal.yoti.com:443/android/task-ruby-alpine
+ 
