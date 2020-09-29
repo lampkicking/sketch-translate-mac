@@ -50,6 +50,7 @@ def transformValueToIOS(value)
   value = value.gsub("\n", "\\n")
   value = value.gsub("\"", "\\\"")
   value = value.gsub("\'", "\\\\'")
+  value = value.gsub("%", "\%%")
 
   value.gsub!(/\{.[^\}]*-([0-9]+)\}/) { |not_needed| val = "%#{$1}$@" }
 

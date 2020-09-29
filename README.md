@@ -1,14 +1,9 @@
 # Translate - Sketch plugin
 A sketch plugin to translate copy content into iOS and Android ready locale file.
 
-To compile the tool
-1. cd sketch-translate-mac
-2. carthage bootstrap --platform mac --use-ssh
-3. compile via Xcode
-
-To run the Script:
-1. Get the identifier of the Google Sheet that contains the copy
-2. Type "main.rb <identifier>"
+To run the script:
+1. Get the identifier of the Google Document that contains the copy
+2. `ruby main.rb <identifier>`
 
 ## How it works
 * **Step 1** Manage copy in a Google Sheet
