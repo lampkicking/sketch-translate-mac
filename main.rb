@@ -39,15 +39,11 @@ def createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
     end
   end
 
-  puts "Checking po value index: #{postOfficeValueIndex}"
-
   # Create the map [key:value]
   (2..worksheet.num_rows).each do |row|
     key = worksheet[row, localizationKeyIndex]
     yotiValue = worksheet[row, yotiValueIndex]
     postOfficeValue = worksheet[row, postOfficeValueIndex]
-
-    puts "Checking po value: #{postOfficeValue} for row: #{row}"
 
     # Yoti copy
     if (!key.empty?)
@@ -57,7 +53,6 @@ def createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
     # PostOffice copy
     if (!key.empty? && !postOfficeValue.empty?)
       postOfficeKey = key + "#postofficeid#"
-      puts "Checking po key: #{postOfficeKey}"
       postOfficeResult[postOfficeKey] = postOfficeValue
     end
   end
