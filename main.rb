@@ -163,12 +163,12 @@ spreadsheet = session.spreadsheet_by_key(spreadsheetKey)
 yotiResultMapKey = "yoti"
 postOfficeResultMapKey = "postOffice"
 spreadsheet.worksheets.each do |worksheet|
-  map = createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
-
   if (worksheet.title == "iOS Export")
+    map = createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
     generateIOSFile("results/ios.strings", map[yotiResultMapKey])
     generateIOSFile("results/ios_postofficeid.strings", map[postOfficeResultMapKey])
   elsif (worksheet.title == "Android Export")
+    map = createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
     generateAndroidFile("results/strings.xml", map[yotiResultMapKey])
     generateAndroidFile("results/strings_postofficeid.xml", map[yotiResultMapKey])
   end
