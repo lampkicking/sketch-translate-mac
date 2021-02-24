@@ -18,7 +18,7 @@ if (drive_config_path == nil)
   drive_config_path = "config.json"
 end
 
-def createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
+def createLocalisationMap(worksheet)
   yotiResult = Hash.new
   postOfficeResult = Hash.new
 
@@ -57,10 +57,7 @@ def createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
     end
   end
 
-  result = Hash.new
-  result[yotiResultMapKey] = yotiResult
-  result[postOfficeResultMapKey] = postOfficeResult
-  return result
+  return yotiResult, postOfficeResult
 end
 
 def transformValueToIOS(value)
@@ -155,16 +152,14 @@ puts "Reading config from " + drive_config_path
 session = GoogleDrive::Session.from_config(drive_config_path)
 
 spreadsheet = session.spreadsheet_by_key(spreadsheetKey)
-yotiResultMapKey = "yoti"
-postOfficeResultMapKey = "postOffice"
 spreadsheet.worksheets.each do |worksheet|
   if (worksheet.title == "iOS Export")
-    map = createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
-    generateIOSFile("results/ios.strings", map[yotiResultMapKey])
-    generateIOSFile("results/ios_postofficeid.strings", map[postOfficeResultMapKey])
+    yotiResultMap, postOfficeResultMap = createLocalisationMap(worksheet)
+    generateIOSFile("results/ios.strings", yotiResultMap)
+    generateIOSFile("results/ios_postofficeid.strings", postOfficeResultMap)
   elsif (worksheet.title == "Android Export")
-    map = createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
-    generateAndroidFile("results/strings.xml", map[yotiResultMapKey])
-    generateAndroidFile("results/strings_postofficeid.xml", map[yotiResultMapKey])
+    yotiResultMap, postOfficeResultMap = createLocalisationMap(worksheet)
+    generateAndroidFile("results/strings.xml", yotiResultMap)
+    generateAndroidFile("results/strings_postofficeid.xml", postOfficeResultMap)
   end
 end
