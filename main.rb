@@ -18,9 +18,7 @@ if (drive_config_path == nil)
   drive_config_path = "config.json"
 end
 
-@yotiResultMapKey = "yoti"
-@postOfficeResultMapKey = "postOffice"
-def createLocalisationMap(worksheet)
+def createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
   yotiResult = Hash.new
   postOfficeResult = Hash.new
 
@@ -157,8 +155,10 @@ puts "Reading config from " + drive_config_path
 session = GoogleDrive::Session.from_config(drive_config_path)
 
 spreadsheet = session.spreadsheet_by_key(spreadsheetKey)
+yotiResultMapKey = "yoti"
+postOfficeResultMapKey = "postOffice"
 spreadsheet.worksheets.each do |worksheet|
-  map = createLocalisationMap(worksheet)
+  map = createLocalisationMap(worksheet, yotiResultMapKey, postOfficeResultMapKey)
 
   if (worksheet.title == "iOS Export")
     generateIOSFile("results/ios.strings", map[yotiResultMapKey])
