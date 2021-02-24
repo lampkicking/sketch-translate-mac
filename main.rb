@@ -18,8 +18,8 @@ if (drive_config_path == nil)
   drive_config_path = "config.json"
 end
 
-yotiResultMapKey = "yoti"
-postOfficeResultMapKey = "postOffice"
+@yotiResultMapKey = "yoti"
+@postOfficeResultMapKey = "postOffice"
 def createLocalisationMap(worksheet)
   yotiResult = Hash.new
   postOfficeResult = Hash.new
