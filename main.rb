@@ -19,31 +19,45 @@ if (drive_config_path == nil)
 end
 
 def createLocalisationMap(worksheet)
-  result = Hash.new
+  yotiResult = Hash.new
+  postOfficeResult = Hash.new
 
-  keyIndex = 0
-  valueIndex = 0
+  localizationKeyIndex = 0
+  yotiValueIndex = 0
+  postOfficeValueIndex = 0
+
   # Find the Key and Value column indexes
-
   (1..worksheet.num_cols).each do |col|
     if worksheet[1, col] == "Localisation Key"
-      keyIndex = col
+      localizationKeyIndex = col
     end
     if worksheet[1, col] == "Localisation Value"
-      valueIndex = col
+      yotiValueIndex = col
+    end
+    if worksheet[1, col] == "PO Value"
+      postOfficeValueIndex = col
     end
   end
 
   # Create the map [key:value]
   (2..worksheet.num_rows).each do |row|
-    key = worksheet[row, keyIndex]
-    value = worksheet[row, valueIndex]
+    key = worksheet[row, localizationKeyIndex]
+    yotiValue = worksheet[row, yotiValueIndex]
+    postOfficeValue = worksheet[row, postOfficeValueIndex]
+
+    # Yoti copy
     if (!key.empty?)
-      result[key] = value
+      yotiResult[key] = yotiValue
+    end
+
+    # PostOffice copy
+    if (!key.empty? && !postOfficeValue.empty?)
+      postOfficeKey = key + "#postofficeid#"
+      postOfficeResult[postOfficeKey] = postOfficeValue
     end
   end
 
-  return result
+  return yotiResult, postOfficeResult
 end
 
 def transformValueToIOS(value)
@@ -118,6 +132,16 @@ def exportToXML(map)
   return stringResult
 end
 
+def generateIOSFile(fileName, map)
+  data = exportToStrings(map)
+  writeToFile(fileName, data)
+end
+
+def generateAndroidFile(fileName, map)
+  data = exportToXML(map)
+  writeToFile(fileName, data)
+end
+
 spreadsheetKey = ARGV[0]
 if spreadsheetKey == nil
   puts "Script called with wrong number of parameters"
@@ -130,13 +154,12 @@ session = GoogleDrive::Session.from_config(drive_config_path)
 spreadsheet = session.spreadsheet_by_key(spreadsheetKey)
 spreadsheet.worksheets.each do |worksheet|
   if (worksheet.title == "iOS Export")
-    map = createLocalisationMap(worksheet)
-    data = exportToStrings(map)
-    writeToFile("results/ios.strings", data)
-  end
-  if (worksheet.title == "Android Export")
-    map = createLocalisationMap(worksheet)
-    data = exportToXML(map)
-    writeToFile("results/en-strings.xml", data)
+    yotiResultMap, postOfficeResultMap = createLocalisationMap(worksheet)
+    generateIOSFile("results/ios.strings", yotiResultMap)
+    generateIOSFile("results/ios_postofficeid.strings", postOfficeResultMap)
+  elsif (worksheet.title == "Android Export")
+    yotiResultMap, postOfficeResultMap = createLocalisationMap(worksheet)
+    generateAndroidFile("results/strings.xml", yotiResultMap)
+    generateAndroidFile("results/strings_postofficeid.xml", postOfficeResultMap)
   end
 end

@@ -7,28 +7,40 @@
 # android-repo contains checked out mobile-localisation repo. New Android strings will be committed here.
 # ios-repo contains checked out strings-merger repo. New iOS strings will be committed here.
 
-ANDROID_IN_PATH=en-strings.xml
-IOS_IN_PATH=ios.strings
-ANDROID_OUT_PATH=en/Android/strings.xml
-IOS_OUT_PATH=new.strings
+#Android paths
+YOTI_ANDROID_IN_PATH=strings.xml
+POSTOFFICE_ANDROID_IN_PATH=strings_postofficeid.xml
 
-cp results/$ANDROID_IN_PATH android-repo/$ANDROID_OUT_PATH
-cp results/$IOS_IN_PATH ios-repo/$IOS_OUT_PATH
+YOTI_ANDROID_OUT_PATH=en/Android/strings.xml
+POSTOFFICE_ANDROID_OUT_PATH=en/Android/strings_postofficeid.xml
+
+#iOS file names
+YOTI_IOS_FILE_NAME=ios.strings
+POSTOFFICE_IOS_FILE_NAME=ios_postofficeid.strings
+
+cp results/$YOTI_ANDROID_IN_PATH android-repo/$YOTI_ANDROID_OUT_PATH
+cp results/$POSTOFFICE_ANDROID_IN_PATH android-repo/$POSTOFFICE_ANDROID_OUT_PATH
+cp results/$YOTI_IOS_FILE_NAME ios-repo/$YOTI_IOS_FILE_NAME
+cp results/$POSTOFFICE_IOS_FILE_NAME ios-repo/$POSTOFFICE_IOS_FILE_NAME
 
 ## Android
 cd android-repo
 git config user.email "ci@yoti.com"
 git config user.name "yoti-ci"
 
-git add $ANDROID_OUT_PATH
+git add $YOTI_ANDROID_IN_PATH
+git diff-index --quiet HEAD $YOTI_ANDROID_OUT_PATH || git commit -m "Update Yoti strings from spreadsheet merge"
 
-git diff-index --quiet HEAD $ANDROID_OUT_PATH || git commit -m "Update strings from spreadsheet merge"
+git add $POSTOFFICE_ANDROID_IN_PATH
+git diff-index --quiet HEAD $POSTOFFICE_ANDROID_OUT_PATH || git commit -m "Update PostOffice strings from spreadsheet merge"
 
 ## iOS
 cd ../ios-repo
 git config user.email "ci@yoti.com"
 git config user.name "yoti-ci"
 
-git add $IOS_OUT_PATH
+git add $YOTI_IOS_FILE_NAME
+git diff-index --quiet HEAD $YOTI_IOS_FILE_NAME || git commit -m "Update Yoti strings from spreadsheet merge"
 
-git diff-index --quiet HEAD $IOS_OUT_PATH || git commit -m "Update strings from spreadsheet merge"
+git add $POSTOFFICE_IOS_FILE_NAME
+git diff-index --quiet HEAD $POSTOFFICE_IOS_FILE_NAME || git commit -m "Update PostOffice strings from spreadsheet merge"
