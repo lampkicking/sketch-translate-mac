@@ -28,10 +28,10 @@ cd android-repo
 git config user.email "ci@yoti.com"
 git config user.name "yoti-ci"
 
-git add $YOTI_ANDROID_IN_PATH
+git add $YOTI_ANDROID_OUT_PATH
 git diff-index --quiet HEAD $YOTI_ANDROID_OUT_PATH || git commit -m "Update Yoti strings from spreadsheet merge"
 
-git add $POSTOFFICE_ANDROID_IN_PATH
+git add $POSTOFFICE_ANDROID_OUT_PATH
 git diff-index --quiet HEAD $POSTOFFICE_ANDROID_OUT_PATH || git commit -m "Update PostOffice strings from spreadsheet merge"
 
 ## iOS
