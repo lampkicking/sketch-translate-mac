@@ -53,7 +53,11 @@ def createLocalisationMap(worksheet)
     # PostOffice copy
     if (!key.empty? && !postOfficeValue.empty?)
       postOfficeKey = key + "#postofficeid#"
-      postOfficeResult[postOfficeKey] = postOfficeValue
+      if postOfficeValue == "$NO_VALUE"
+          postOfficeResult[postOfficeKey] = ""
+      else
+          postOfficeResult[postOfficeKey] = postOfficeValue
+      end
     end
   end
 
