@@ -8,31 +8,32 @@
 # ios-repo contains checked out strings-merger repo. New iOS strings will be committed here.
 
 #Android paths
-YOTI_ANDROID_IN_PATH=strings.xml
-POSTOFFICE_ANDROID_IN_PATH=strings_postofficeid.xml
-
-YOTI_ANDROID_OUT_PATH=en/Android/strings.xml
-POSTOFFICE_ANDROID_OUT_PATH=en/Android/strings_postofficeid.xml
-
-#iOS file names
+YOTI_ANDROID_FILE_NAME=strings.xml
 YOTI_IOS_FILE_NAME=ios.strings
-POSTOFFICE_IOS_FILE_NAME=ios_postofficeid.strings
 
-cp results/$YOTI_ANDROID_IN_PATH android-repo/$YOTI_ANDROID_OUT_PATH
-cp results/$POSTOFFICE_ANDROID_IN_PATH android-repo/$POSTOFFICE_ANDROID_OUT_PATH
+#Additional white label targets
+TARGETS=("postofficeid" "smartid")
+
+cp results/$YOTI_ANDROID_FILE_NAME android-repo/$YOTI_ANDROID_FILE_NAME
 cp results/$YOTI_IOS_FILE_NAME ios-repo/$YOTI_IOS_FILE_NAME
-cp results/$POSTOFFICE_IOS_FILE_NAME ios-repo/$POSTOFFICE_IOS_FILE_NAME
+
+for TARGET in "${TARGETS[@]}"; do
+    cp results/strings_${TARGET}.xml android-repo/en/Android/strings_${TARGET}.xml
+    cp results/ios_${TARGET}.strings ios-repo/ios_${TARGET}.strings
+done
 
 ## Android
 cd android-repo
 git config user.email "ci@yoti.com"
 git config user.name "yoti-ci"
 
-git add $YOTI_ANDROID_OUT_PATH
-git diff-index --quiet HEAD $YOTI_ANDROID_OUT_PATH || git commit -m "Update Yoti strings from spreadsheet merge"
+git add en/Android/$YOTI_ANDROID_FILE_NAME
+git diff-index --quiet HEAD en/Android/$YOTI_ANDROID_FILE_NAME || git commit -m "Update Yoti strings from spreadsheet merge"
 
-git add $POSTOFFICE_ANDROID_OUT_PATH
-git diff-index --quiet HEAD $POSTOFFICE_ANDROID_OUT_PATH || git commit -m "Update PostOffice strings from spreadsheet merge"
+for TARGET in "${TARGETS[@]}"; do
+    git add en/Android/strings_${target}.xml
+    git diff-index --quiet HEAD en/Android/strings_${TARGET}.xml || git commit -m "Update "${TARGET}" strings from spreadsheet merge"
+done
 
 ## iOS
 cd ../ios-repo
@@ -42,5 +43,7 @@ git config user.name "yoti-ci"
 git add $YOTI_IOS_FILE_NAME
 git diff-index --quiet HEAD $YOTI_IOS_FILE_NAME || git commit -m "Update Yoti strings from spreadsheet merge"
 
-git add $POSTOFFICE_IOS_FILE_NAME
-git diff-index --quiet HEAD $POSTOFFICE_IOS_FILE_NAME || git commit -m "Update PostOffice strings from spreadsheet merge"
+for TARGET in "${TARGETS[@]}"; do
+    git add strings_${target}.xml
+    git diff-index --quiet HEAD strings_${target}.xml || git commit -m "Update "${target}" strings from spreadsheet merge"
+done

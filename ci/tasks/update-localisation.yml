@@ -22,7 +22,6 @@ run:
 
 platform: linux
 image_resource:
-  type: docker-image
+  type: registry-image
   source:
-    repository: dr.internal.yoti.com:443/android/task-ruby-alpine
- 
+    repository: registry.infra.yoti.com/android/task-ruby-alpine
