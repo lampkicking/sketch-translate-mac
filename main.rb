@@ -68,7 +68,7 @@ def createLocalisationMap(worksheet)
           whiteLabelResult[whiteLabelKey] = whiteLabelValue
         end
       end
-    end     
+    end
   end
 
   results = [yotiResult]
