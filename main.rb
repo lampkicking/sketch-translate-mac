@@ -70,9 +70,9 @@ def createLocalisationMap(worksheet)
       if (!key.empty? && !whiteLabelValue.empty?)
         whiteLabelKey = key + "#" + $whiteLabels[index] + "#"
         if whiteLabelValue == "$NO_VALUE"
-          whiteLabelResult[whiteLabelKey] = ""
+          whiteLabelResult[index][whiteLabelKey] = ""
         else
-          whiteLabelResult[whiteLabelKey] = whiteLabelValue
+          whiteLabelResult[index][whiteLabelKey] = whiteLabelValue
         end
       end
     end
