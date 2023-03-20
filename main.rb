@@ -42,16 +42,11 @@ def createLocalisationMap(worksheet)
       yotiValueIndex = col
     end
     $whiteLabels.each_with_index do |whiteLabel, index|
-      puts "Checking white labels columns #{whiteLabel}"
       if worksheet[1, col] == whiteLabelsColumnName[index]
         whiteLabelIndicies[index] = col
-        puts "Found at #{col}"
       end
     end
   end
-
-  puts "Whitelabels: #{$whiteLabels}"
-  puts "White label indexes: #{whiteLabelIndicies}"
 
   # Create the map [key:value]
   (2..worksheet.num_rows).each do |row|
@@ -184,9 +179,12 @@ spreadsheet.worksheets.each do |worksheet|
     resultsMaps = createLocalisationMap(worksheet)
     generateIOSFile("results/ios.strings", resultsMaps[0])
 
+    puts "iOS Yoti written"
+
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
         generateIOSFile("results/ios_" + $whiteLabels[index] + ".strings", resultsMap)
+        puts "iOS #{$whiteLabels[index]} written"
       end
     end
   elsif (worksheet.title == "Android Export")
@@ -195,9 +193,13 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps = createLocalisationMap(worksheet)
     generateAndroidFile("results/strings.xml", resultsMaps[0])
+
+    puts "Android Yoti written"
+
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
         generateAndroidFile("results/strings_" + $whiteLabels[index] + ".xml", resultsMap)
+        puts "Android #{$whiteLabels[index]} written"
       end
     end
   end
