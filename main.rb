@@ -18,18 +18,20 @@ if (drive_config_path == nil)
   drive_config_path = "config.json"
 end
 
-whiteLabels=["postofficeid" "smartid"]
-whiteLabelsColumnName=["PO Value" "SmartID Value"]
+$whiteLabels=["postofficeid" "smartid"]
 
 def createLocalisationMap(worksheet)
+  whiteLabelsColumnName=["PO Value" "SmartID Value"]
+
+
   yotiResult = Hash.new
   whiteLabelResult = []
-  whiteLabels.each {|whiteLabel| whiteLabelResult.push(Hash.new) }
+  $whiteLabels.each {|whiteLabel| whiteLabelResult.push(Hash.new) }
 
   localizationKeyIndex = 0
   yotiValueIndex = 0
   whiteLabelIndicies = []
-  whiteLabels.each {|whiteLabel| whiteLabelIndicies.push(0) }
+  $whiteLabels.each {|whiteLabel| whiteLabelIndicies.push(0) }
 
   # Find the Key and Value column indexes
   (1..worksheet.num_cols).each do |col|
@@ -39,7 +41,7 @@ def createLocalisationMap(worksheet)
     if worksheet[1, col] == "Localisation Value"
       yotiValueIndex = col
     end
-    whiteLabels.each_with_index do |whiteLabel, index|
+    $whiteLabels.each_with_index do |whiteLabel, index|
       if worksheet[1, col] == whiteLabelsColumnName[index]
         whiteLabelIndicies[index] = col
       end
@@ -61,7 +63,7 @@ def createLocalisationMap(worksheet)
     # White label copy
     whiteLabelValues.each_with_index do |whiteLabelValue, index|
       if (!key.empty? && !whiteLabelValue.empty?)
-        whiteLabelKey = key + "#" + whiteLabels[index] + "#"
+        whiteLabelKey = key + "#" + $whiteLabels[index] + "#"
         if whiteLabelValue == "$NO_VALUE"
           whiteLabelResult[whiteLabelKey] = ""
         else
@@ -176,7 +178,7 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        generateIOSFile("results/ios_" + whiteLabels[index] + ".strings", resultsMap)
+        generateIOSFile("results/ios_" + $whiteLabels[index] + ".strings", resultsMap)
       end
     end
   elsif (worksheet.title == "Android Export")
@@ -184,7 +186,7 @@ spreadsheet.worksheets.each do |worksheet|
     generateAndroidFile("results/strings.xml", resultsMaps[0])
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        generateIOSFile("results/results/strings_" + whiteLabels[index] + ".xml", resultsMap)
+        generateIOSFile("results/results/strings_" + $whiteLabels[index] + ".xml", resultsMap)
       end
     end
   end
