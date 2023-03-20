@@ -185,8 +185,8 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        generateIOSFile("results/ios_" + $whiteLabels[index] + ".strings", resultsMap)
-        puts "iOS #{$whiteLabels[index]} written"
+        generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
+        puts "iOS #{$whiteLabels[index - 1]} written"
       end
     end
   elsif (worksheet.title == "Android Export")
@@ -200,8 +200,8 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        generateAndroidFile("results/strings_" + $whiteLabels[index] + ".xml", resultsMap)
-        puts "Android #{$whiteLabels[index]} written"
+        generateAndroidFile("results/strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
+        puts "Android #{$whiteLabels[index - 1]} written"
       end
     end
   end
