@@ -21,7 +21,7 @@ end
 $whiteLabels=["postofficeid", "smartid"]
 
 def createLocalisationMap(worksheet)
-  whiteLabelsColumnName=["PO Value" "SmartID Value"]
+  whiteLabelsColumnName=["PO Value", "SmartID Value"]
 
 
   yotiResult = Hash.new
