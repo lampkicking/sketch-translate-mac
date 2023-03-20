@@ -48,6 +48,7 @@ def createLocalisationMap(worksheet)
     end
   end
 
+  puts "Whitelabels: #{$whiteLabels}"
   puts "White label indexes: #{whiteLabelIndicies}"
 
   # Create the map [key:value]
