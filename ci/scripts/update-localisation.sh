@@ -45,6 +45,6 @@ git add $YOTI_IOS_FILE_NAME
 git diff-index --quiet HEAD $YOTI_IOS_FILE_NAME || git commit -m "Update Yoti strings from spreadsheet merge"
 
 for TARGET in "${TARGETS[@]}"; do
-    git add strings_${TARGET}.xml
-    git diff-index --quiet HEAD strings_${TARGET}.xml || git commit -m "Update "${TARGET}" strings from spreadsheet merge"
+    git add ios_${TARGET}.strings
+    git diff-index --quiet HEAD ios_${TARGET}.strings || git commit -m "Update "${TARGET}" strings from spreadsheet merge"
 done
