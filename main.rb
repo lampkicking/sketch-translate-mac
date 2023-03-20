@@ -18,7 +18,7 @@ if (drive_config_path == nil)
   drive_config_path = "config.json"
 end
 
-$whiteLabels=["postofficeid" "smartid"]
+$whiteLabels=["postofficeid", "smartid"]
 
 def createLocalisationMap(worksheet)
   whiteLabelsColumnName=["PO Value" "SmartID Value"]
