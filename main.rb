@@ -197,7 +197,7 @@ spreadsheet.worksheets.each do |worksheet|
     generateAndroidFile("results/strings.xml", resultsMaps[0])
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        generateIOSFile("results/results/strings_" + $whiteLabels[index] + ".xml", resultsMap)
+        generateAndroidFile("results/strings_" + $whiteLabels[index] + ".xml", resultsMap)
       end
     end
   end
