@@ -76,6 +76,8 @@ def createLocalisationMap(worksheet)
   results = [yotiResult]
   whiteLabelResult.each{|result| results.push(result) }
 
+  puts "Apps: #{results.count}"
+
   return results
 end
 
