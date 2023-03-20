@@ -48,11 +48,13 @@ def createLocalisationMap(worksheet)
     end
   end
 
+  puts "White label indexes: #{whiteLabelIndicies}"
+
   # Create the map [key:value]
   (2..worksheet.num_rows).each do |row|
     key = worksheet[row, localizationKeyIndex]
     yotiValue = worksheet[row, yotiValueIndex]
-    whiteLabelValues = Hash.new
+    whiteLabelValues = []
     whiteLabelIndicies.each {|whiteLabelIndex| whiteLabelValues.push(worksheet[row, whiteLabelIndex]) }
 
     # Yoti copy
@@ -173,6 +175,9 @@ session = GoogleDrive::Session.from_config(drive_config_path)
 spreadsheet = session.spreadsheet_by_key(spreadsheetKey)
 spreadsheet.worksheets.each do |worksheet|
   if (worksheet.title == "iOS Export")
+
+    puts "Checking iOS Export"
+
     resultsMaps = createLocalisationMap(worksheet)
     generateIOSFile("results/ios.strings", resultsMaps[0])
 
@@ -182,6 +187,9 @@ spreadsheet.worksheets.each do |worksheet|
       end
     end
   elsif (worksheet.title == "Android Export")
+
+    puts "Checking Android Export"
+
     resultsMaps = createLocalisationMap(worksheet)
     generateAndroidFile("results/strings.xml", resultsMaps[0])
     resultsMaps.each_with_index do |resultsMap, index|
