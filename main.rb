@@ -42,8 +42,10 @@ def createLocalisationMap(worksheet)
       yotiValueIndex = col
     end
     $whiteLabels.each_with_index do |whiteLabel, index|
+      puts "Checking white labels columns #{whiteLabel}"
       if worksheet[1, col] == whiteLabelsColumnName[index]
         whiteLabelIndicies[index] = col
+        puts "Found at #{col}"
       end
     end
   end
