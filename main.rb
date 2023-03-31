@@ -18,13 +18,20 @@ if (drive_config_path == nil)
   drive_config_path = "config.json"
 end
 
+$whiteLabels=["postofficeid", "smartid"]
+
 def createLocalisationMap(worksheet)
+  whiteLabelsColumnName=["PO Value", "SmartID Value"]
+
+
   yotiResult = Hash.new
-  postOfficeResult = Hash.new
+  whiteLabelResult = []
+  $whiteLabels.each {|whiteLabel| whiteLabelResult.push(Hash.new) }
 
   localizationKeyIndex = 0
   yotiValueIndex = 0
-  postOfficeValueIndex = 0
+  whiteLabelIndicies = []
+  $whiteLabels.each {|whiteLabel| whiteLabelIndicies.push(0) }
 
   # Find the Key and Value column indexes
   (1..worksheet.num_cols).each do |col|
@@ -34,8 +41,10 @@ def createLocalisationMap(worksheet)
     if worksheet[1, col] == "Localisation Value"
       yotiValueIndex = col
     end
-    if worksheet[1, col] == "PO Value"
-      postOfficeValueIndex = col
+    $whiteLabels.each_with_index do |whiteLabel, index|
+      if worksheet[1, col] == whiteLabelsColumnName[index]
+        whiteLabelIndicies[index] = col
+      end
     end
   end
 
@@ -43,25 +52,30 @@ def createLocalisationMap(worksheet)
   (2..worksheet.num_rows).each do |row|
     key = worksheet[row, localizationKeyIndex]
     yotiValue = worksheet[row, yotiValueIndex]
-    postOfficeValue = worksheet[row, postOfficeValueIndex]
+    whiteLabelValues = []
+    whiteLabelIndicies.each {|whiteLabelIndex| whiteLabelValues.push(worksheet[row, whiteLabelIndex]) }
 
     # Yoti copy
     if (!key.empty?)
       yotiResult[key] = yotiValue
     end
-
-    # PostOffice copy
-    if (!key.empty? && !postOfficeValue.empty?)
-      postOfficeKey = key + "#postofficeid#"
-      if postOfficeValue == "$NO_VALUE"
-          postOfficeResult[postOfficeKey] = ""
-      else
-          postOfficeResult[postOfficeKey] = postOfficeValue
+    
+    # White label copy
+    whiteLabelValues.each_with_index do |whiteLabelValue, index|
+      if (!key.empty? && !whiteLabelValue.empty?)
+        whiteLabelKey = key + "#" + $whiteLabels[index] + "#"
+        if whiteLabelValue == "$NO_VALUE"
+          whiteLabelResult[index][whiteLabelKey] = ""
+        else
+          whiteLabelResult[index][whiteLabelKey] = whiteLabelValue
+        end
       end
     end
   end
 
-  return yotiResult, postOfficeResult
+  results = [yotiResult]
+  whiteLabelResult.each{|result| results.push(result) }
+  return results
 end
 
 def transformValueToIOS(value)
@@ -158,12 +172,34 @@ session = GoogleDrive::Session.from_config(drive_config_path)
 spreadsheet = session.spreadsheet_by_key(spreadsheetKey)
 spreadsheet.worksheets.each do |worksheet|
   if (worksheet.title == "iOS Export")
-    yotiResultMap, postOfficeResultMap = createLocalisationMap(worksheet)
-    generateIOSFile("results/ios.strings", yotiResultMap)
-    generateIOSFile("results/ios_postofficeid.strings", postOfficeResultMap)
+
+    puts "Checking iOS Export"
+
+    resultsMaps = createLocalisationMap(worksheet)
+    generateIOSFile("results/ios.strings", resultsMaps[0])
+
+    puts "iOS Yoti written"
+
+    resultsMaps.each_with_index do |resultsMap, index|
+      if index != 0
+        generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
+        puts "iOS #{$whiteLabels[index - 1]} written"
+      end
+    end
   elsif (worksheet.title == "Android Export")
-    yotiResultMap, postOfficeResultMap = createLocalisationMap(worksheet)
-    generateAndroidFile("results/strings.xml", yotiResultMap)
-    generateAndroidFile("results/strings_postofficeid.xml", postOfficeResultMap)
+
+    puts "Checking Android Export"
+
+    resultsMaps = createLocalisationMap(worksheet)
+    generateAndroidFile("results/strings.xml", resultsMaps[0])
+
+    puts "Android Yoti written"
+
+    resultsMaps.each_with_index do |resultsMap, index|
+      if index != 0
+        generateAndroidFile("results/strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
+        puts "Android #{$whiteLabels[index - 1]} written"
+      end
+    end
   end
 end
