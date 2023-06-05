@@ -32,7 +32,7 @@ git add ${ANDROID_BASE_PATH}${YOTI_ANDROID_FILE_NAME}
 git diff-index --quiet HEAD ${ANDROID_BASE_PATH}${YOTI_ANDROID_FILE_NAME} || git commit -m "Update Yoti strings from spreadsheet merge"
 
 for TARGET in "${TARGETS[@]}"; do
-    git add en/Android/strings_${target}.xml
+    git add en/Android/strings_${TARGET}.xml
     git diff-index --quiet HEAD ${ANDROID_BASE_PATH}strings_${TARGET}.xml || git commit -m "Update "${TARGET}" strings from spreadsheet merge"
 done
 
