@@ -162,7 +162,7 @@ end
 
 spreadsheetKey = ARGV[0]
 isRelease = ARGV[1]
-if spreadsheetKey || isRelease == nil
+if spreadsheetKey == nil
   puts "Script called with wrong number of parameters"
   exit 1
 end
@@ -177,7 +177,7 @@ spreadsheet.worksheets.each do |worksheet|
     puts "Checking iOS Export"
 
     resultsMaps = createLocalisationMap(worksheet)
-    if isRelease = true
+    if isRelease == true
         generateIOSFile("results/ios.strings", resultsMaps[0])
     elsif
         generateIOSFile("results/ios.master.strings", resultsMaps[0])
@@ -187,7 +187,7 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps.each_with_index do |resultsMap, index|
     if index != 0
-      if isRelease = true
+      if isRelease == true
           generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
           puts "iOS #{$whiteLabels[index - 1]} written"
       elsif
@@ -200,7 +200,7 @@ spreadsheet.worksheets.each do |worksheet|
     puts "Checking Android Export"
 
     resultsMaps = createLocalisationMap(worksheet)
-    if isRelease = true
+    if isRelease == true
         generateAndroidFile("results/strings.xml", resultsMaps[0])
     elsif
         generateAndroidFile("results/master_strings.xml", resultsMaps[0])
@@ -210,7 +210,7 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        if isRelease = true
+        if isRelease == true
             generateAndroidFile("results/master_strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
             puts "Android #{$whiteLabels[index - 1]} written"
         elsif
