@@ -216,6 +216,7 @@ spreadsheet.worksheets.each do |worksheet|
         elsif
             generateAndroidFile("results/master_strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
             puts "Android #{$whiteLabels[index - 1]} written"
+        end
       end
     end
   end
