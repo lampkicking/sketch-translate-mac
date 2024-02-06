@@ -186,13 +186,14 @@ spreadsheet.worksheets.each do |worksheet|
     puts "iOS Yoti written"
 
     resultsMaps.each_with_index do |resultsMap, index|
-    if index != 0
-      if isRelease == true
-          generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
-          puts "iOS #{$whiteLabels[index - 1]} written"
-      elsif
-          generateIOSFile("results/ios_master_" + $whiteLabels[index - 1] + ".strings", resultsMap)
-          puts "iOS #{$whiteLabels[index - 1]} written"
+      if index != 0
+        if isRelease == true
+            generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
+            puts "iOS #{$whiteLabels[index - 1]} written"
+        elsif
+            generateIOSFile("results/ios_master_" + $whiteLabels[index - 1] + ".strings", resultsMap)
+            puts "iOS #{$whiteLabels[index - 1]} written"
+        end
       end
     end
   elsif (worksheet.title == "Android Export")
