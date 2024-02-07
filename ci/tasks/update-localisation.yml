@@ -15,7 +15,8 @@ outputs:
   - name: android-repo
   - name: ios-repo
 
-params: {}
+params:
+  IS_RELEASE: true
 
 run:
   path: scripts/ci/scripts/update-localisation.sh
