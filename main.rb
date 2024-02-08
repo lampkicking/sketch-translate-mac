@@ -177,7 +177,7 @@ spreadsheet.worksheets.each do |worksheet|
     puts "Checking iOS Export"
 
     resultsMaps = createLocalisationMap(worksheet)
-    if isRelease == true
+    if isRelease == "true"
         generateIOSFile("results/ios.strings", resultsMaps[0])
     else
         generateIOSFile("results/ios.master.strings", resultsMaps[0])
@@ -187,7 +187,7 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        if isRelease == true
+        if isRelease == "true"
             generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
             puts "iOS #{$whiteLabels[index - 1]} written"
         else
@@ -201,7 +201,7 @@ spreadsheet.worksheets.each do |worksheet|
     puts "Checking Android Export"
 
     resultsMaps = createLocalisationMap(worksheet)
-    if isRelease == true
+    if isRelease == "true"
         generateAndroidFile("results/strings.xml", resultsMaps[0])
     else
         generateAndroidFile("results/master_strings.xml", resultsMaps[0])
@@ -211,7 +211,7 @@ spreadsheet.worksheets.each do |worksheet|
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        if isRelease == true
+        if isRelease == "true"
             generateAndroidFile("results/strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
             puts "Android #{$whiteLabels[index - 1]} written"
         else
