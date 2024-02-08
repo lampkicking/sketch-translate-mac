@@ -14,7 +14,7 @@ if [ -z "${IS_RELEASE##*true*}" ]; then
   ANDROID_BASE_PATH=en/Android/
 else
   YOTI_ANDROID_FILE_NAME=master_strings.xml
-  YOTI_IOS_FILE_NAME=ios.master.strings
+  YOTI_IOS_FILE_NAME=ios_master.strings
   ANDROID_BASE_PATH=en/Android/
 fi
 

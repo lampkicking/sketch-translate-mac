@@ -180,7 +180,7 @@ spreadsheet.worksheets.each do |worksheet|
     if isRelease == "true"
         generateIOSFile("results/ios.strings", resultsMaps[0])
     else
-        generateIOSFile("results/ios.master.strings", resultsMaps[0])
+        generateIOSFile("results/ios_master.strings", resultsMaps[0])
     end
 
     puts "iOS Yoti written"
