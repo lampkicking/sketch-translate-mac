@@ -212,7 +212,7 @@ spreadsheet.worksheets.each do |worksheet|
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
         if isRelease == true
-            generateAndroidFile("results/master_strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
+            generateAndroidFile("results/strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
             puts "Android #{$whiteLabels[index - 1]} written"
         else
             generateAndroidFile("results/master_strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)

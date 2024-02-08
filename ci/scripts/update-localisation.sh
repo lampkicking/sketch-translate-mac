@@ -12,7 +12,7 @@ if [ -z "${IS_RELEASE##*true*}" ]; then
   YOTI_ANDROID_FILE_NAME=strings.xml
   YOTI_IOS_FILE_NAME=ios.strings
   ANDROID_BASE_PATH=en/Android/
-else [ -z "${IS_RELEASE##*false*}" ];
+else
   YOTI_ANDROID_FILE_NAME=master_strings.xml
   YOTI_IOS_FILE_NAME=ios.master.strings
   ANDROID_BASE_PATH=en/Android/
