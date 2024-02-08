@@ -161,6 +161,7 @@ def generateAndroidFile(fileName, map)
 end
 
 spreadsheetKey = ARGV[0]
+isRelease = ARGV[1]
 if spreadsheetKey == nil
   puts "Script called with wrong number of parameters"
   exit 1
@@ -176,14 +177,23 @@ spreadsheet.worksheets.each do |worksheet|
     puts "Checking iOS Export"
 
     resultsMaps = createLocalisationMap(worksheet)
-    generateIOSFile("results/ios.strings", resultsMaps[0])
+    if isRelease == "true"
+        generateIOSFile("results/ios.strings", resultsMaps[0])
+    else
+        generateIOSFile("results/ios_master.strings", resultsMaps[0])
+    end
 
     puts "iOS Yoti written"
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
-        puts "iOS #{$whiteLabels[index - 1]} written"
+        if isRelease == "true"
+            generateIOSFile("results/ios_" + $whiteLabels[index - 1] + ".strings", resultsMap)
+            puts "iOS #{$whiteLabels[index - 1]} written"
+        else
+            generateIOSFile("results/ios_master_" + $whiteLabels[index - 1] + ".strings", resultsMap)
+            puts "iOS #{$whiteLabels[index - 1]} written"
+        end
       end
     end
   elsif (worksheet.title == "Android Export")
@@ -191,14 +201,23 @@ spreadsheet.worksheets.each do |worksheet|
     puts "Checking Android Export"
 
     resultsMaps = createLocalisationMap(worksheet)
-    generateAndroidFile("results/strings.xml", resultsMaps[0])
+    if isRelease == "true"
+        generateAndroidFile("results/strings.xml", resultsMaps[0])
+    else
+        generateAndroidFile("results/master_strings.xml", resultsMaps[0])
+    end
 
     puts "Android Yoti written"
 
     resultsMaps.each_with_index do |resultsMap, index|
       if index != 0
-        generateAndroidFile("results/strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
-        puts "Android #{$whiteLabels[index - 1]} written"
+        if isRelease == "true"
+            generateAndroidFile("results/strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
+            puts "Android #{$whiteLabels[index - 1]} written"
+        else
+            generateAndroidFile("results/master_strings_" + $whiteLabels[index - 1] + ".xml", resultsMap)
+            puts "Android #{$whiteLabels[index - 1]} written"
+        end
       end
     end
   end

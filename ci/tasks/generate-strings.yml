@@ -13,10 +13,11 @@ outputs:
 params:
   # Config file path to authenticate on drive
   DRIVE_CONFIG: drive-config/content
+  isRelease: true
 
 run:
   path: ruby
-  args: [ scripts/main.rb, ((spreadsheet-id))]
+  args: [ scripts/main.rb, ((spreadsheet-id)), ((isRelease))]
 
 platform: linux
 image_resource:

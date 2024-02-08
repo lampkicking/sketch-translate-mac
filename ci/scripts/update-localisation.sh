@@ -8,9 +8,15 @@
 # ios-repo contains checked out strings-merger repo. New iOS strings will be committed here.
 
 #Android paths
-YOTI_ANDROID_FILE_NAME=strings.xml
-YOTI_IOS_FILE_NAME=ios.strings
-ANDROID_BASE_PATH=en/Android/
+if [ -z "${IS_RELEASE##*true*}" ]; then
+  YOTI_ANDROID_FILE_NAME=strings.xml
+  YOTI_IOS_FILE_NAME=ios.strings
+  ANDROID_BASE_PATH=en/Android/
+else
+  YOTI_ANDROID_FILE_NAME=master_strings.xml
+  YOTI_IOS_FILE_NAME=ios_master.strings
+  ANDROID_BASE_PATH=en/Android/
+fi
 
 #Additional white label targets
 TARGETS=("postofficeid" "smartid")
